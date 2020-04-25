@@ -72,7 +72,7 @@ class BaseClient extends EventEmitter {
   }
 
   /**
-   * 클라이언트가 종료되면 자동으로 취소되는 setTimeout을 설정하세요
+   * 클라이언트가 종료되면 자동으로 취소되는 setTimeout을 설정합니다.
    * @param {Function} fn 실행할 함수
    * @param {number} delay 실행하기 전 기다릴 시간 (밀리초)
    * @param {...*} args 함수의 인수
@@ -97,10 +97,10 @@ class BaseClient extends EventEmitter {
   }
 
   /**
-   * Sets an interval that will be automatically cancelled if the client is destroyed.
-   * @param {Function} fn Function to execute
-   * @param {number} delay Time to wait between executions (in milliseconds)
-   * @param {...*} args Arguments for the function
+   * 클라이언트가 종료되면 자동으로 취소되는 setInterval을 설정합니다.
+   * @param {Function} fn 실행할 함수
+   * @param {number} delay 실행하는 사이의 기다리는 간격 (밀리초)
+   * @param {...*} args 함수의 인수
    * @returns {Timeout}
    */
   setInterval(fn, delay, ...args) {
@@ -110,8 +110,8 @@ class BaseClient extends EventEmitter {
   }
 
   /**
-   * Clears an interval.
-   * @param {Timeout} interval Interval to cancel
+   * Interval을 초기화합니다
+   * @param {Timeout} interval 취소할 Interval
    */
   clearInterval(interval) {
     clearInterval(interval);
@@ -119,9 +119,9 @@ class BaseClient extends EventEmitter {
   }
 
   /**
-   * Sets an immediate that will be automatically cancelled if the client is destroyed.
-   * @param {Function} fn Function to execute
-   * @param {...*} args Arguments for the function
+   * 클라이언트가 종료되면 자동으로 취소되는 Immediate를 설정합니다.
+   * @param {Function} fn 실행할 함수
+   * @param {...*} args 함수의 인수
    * @returns {Immediate}
    */
   setImmediate(fn, ...args) {
@@ -131,8 +131,8 @@ class BaseClient extends EventEmitter {
   }
 
   /**
-   * Clears an immediate.
-   * @param {Immediate} immediate Immediate to cancel
+   * Immediate을 초기화합니다.
+   * @param {Immediate} immediate 취소할 Immediate
    */
   clearImmediate(immediate) {
     clearImmediate(immediate);
