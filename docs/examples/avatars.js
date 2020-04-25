@@ -1,31 +1,31 @@
 'use strict';
 
 /**
- * Send a user a link to their avatar
+ * 유저에게 자신의 아바타 링크를 전송합니다
  */
 
-// Import the discord.js module
+// discord.js 모듈 인포트
 const Discord = require('discord.js');
 
-// Create an instance of a Discord client
+// 디스코드 클라이언트 인스턴트를 생성
 const client = new Discord.Client();
 
 /**
- * The ready event is vital, it means that only _after_ this will your bot start reacting to information
- * received from Discord
+ * ready 이벤트는 중요하며, 이 이벤트만이 봇이 정보에 반응을 시작된다는 것을 의미합니다.
+ * 디스코드로 부터 정보가 전달됩니다.
  */
 client.on('ready', () => {
-  console.log('I am ready!');
+  console.log('준비되었습니다!');
 });
 
-// Create an event listener for messages
+// 메세지에 대한 이벤트 리스너를 생성합니다.
 client.on('message', message => {
-  // If the message is "what is my avatar"
-  if (message.content === 'what is my avatar') {
-    // Send the user's avatar URL
+  // 만약 메세지가 "내 아바타는 뭐니" 라면
+  if (message.content === '내 아바타는 뭐니') {
+    // 유저의 아바타 URL을 전송
     message.reply(message.author.displayAvatarURL());
   }
 });
 
-// Log our bot in using the token from https://discordapp.com/developers/applications/me
-client.login('your token here');
+//  https://discordapp.com/developers/applications/me 에 있는 토큰을 이용하여 봇에로그인하세요
+client.login('토큰을 이곳에 입력하세요');
