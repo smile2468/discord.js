@@ -28,7 +28,7 @@ v11.1.0 은 게이트웨이와 음성 기능이 안정되고 개선되었습니�
 
 ### Client.login() - 더이상 이메일 + 패스워드 로그인을 지원하지 않습니다.
 
-적절한 토큰 지원이 출현한 이후 e-메일과 암호로 로그인하는 것은 항상 크게 좌절되었지만, v11에서는 Hammer & Chisel이 공식
+적절한 토큰 지원이 출현한 이후 이메일과 암호로 로그인하는 것은 항상 크게 좌절되었지만, v11에서는 Hammer & Chisel이 공식
 적으로 해서는 [안 된다고 언급](https://github.com/hammerandchisel/discord-api-docs/issues/69#issuecomment-223886862)했기
 때문에 기능을 완전히 제거하기로 결정했습니다.
 

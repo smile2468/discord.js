@@ -43,7 +43,7 @@ discord.js 는 강력한 [Node.js](https://nodejs.org) 모듈로써 [디스코�
 ### 오디오 엔진
 
 추천하는 opus 엔진은 @discordjs/opus입니다. opusscript보다 훨씬 원할하게 작동합니다. 만약 두 개 모두 사용이 가능할 경우, discord.js 는 자동적으로 @discordjs/opus 를 선택합니다.
-opusscript를 사용하는 경우에는 단지 @ discordjs/opus를 사용하기 힘든 개발환경에서만 권장됩니다.
+opusscript를 사용하는 경우에는 단지 @discordjs/opus를 사용하기 힘든 개발환경에서만 권장됩니다.
 개발용 봇의 경우 @discordjs/opus 사용은 필수사항이여야 하며, 특히 여러 길드에서 실행될 경우 더욱 그러해야 합니다.
 
 ### 선택적인 패키지들
