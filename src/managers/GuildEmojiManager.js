@@ -8,21 +8,21 @@ const Collection = require('../util/Collection');
 const DataResolver = require('../util/DataResolver');
 
 /**
- * Manages API methods for GuildEmojis and stores their cache.
+ * 길드 이모지들의 API 메소드를 관리하고 캐시에 저장합니다.
  * @extends {BaseManager}
  */
 class GuildEmojiManager extends BaseManager {
   constructor(guild, iterable) {
     super(guild.client, iterable, GuildEmoji);
     /**
-     * The guild this manager belongs to
+     * 이 매니저에 귀속된 길드
      * @type {Guild}
      */
     this.guild = guild;
   }
 
   /**
-   * The cache of GuildEmojis
+   * 이 매니저에 귀속된 길드 이모지 캐시
    * @type {Collection<Snowflake, GuildEmoji>}
    * @name GuildEmojiManager#cache
    */
@@ -32,22 +32,22 @@ class GuildEmojiManager extends BaseManager {
   }
 
   /**
-   * Creates a new custom emoji in the guild.
-   * @param {BufferResolvable|Base64Resolvable} attachment The image for the emoji
-   * @param {string} name The name for the emoji
-   * @param {Object} [options] Options
-   * @param {Collection<Snowflake, Role>|RoleResolvable[]} [options.roles] Roles to limit the emoji to
-   * @param {string} [options.reason] Reason for creating the emoji
+   * 길드에 새로운 커스텀 이모지를 생성합니다.
+   * @param {BufferResolvable|Base64Resolvable} attachment 이모지의 사진
+   * @param {string} name 이모지의 이름
+   * @param {Object} [options] 옵션
+   * @param {Collection<Snowflake, Role>|RoleResolvable[]} [options.roles] 이 이모지를 사용할수 있는 역할들을 제한
+   * @param {string} [options.reason] 이모지를 추가하는 이유
    * @returns {Promise<Emoji>} The created emoji
    * @example
-   * // Create a new emoji from a url
+   * // url에서 이모지를 생성합니다
    * guild.emojis.create('https://i.imgur.com/w3duR07.png', 'rip')
-   *   .then(emoji => console.log(`Created new emoji with name ${emoji.name}!`))
+   *   .then(emoji => console.log(`${emoji.name}의 이름을 가진 이모지를 생성 했습니다!`))
    *   .catch(console.error);
    * @example
-   * // Create a new emoji from a file on your computer
+   * // 해당 컴퓨터의 파일에서 이모지를 생성합니다
    * guild.emojis.create('./memes/banana.png', 'banana')
-   *   .then(emoji => console.log(`Created new emoji with name ${emoji.name}!`))
+   *   .then(emoji => console.log(`${emoji.name}의 이름을 가진 이모지를 생성 했습니다!`))
    *   .catch(console.error);
    */
   async create(attachment, name, { roles, reason } = {}) {
@@ -75,16 +75,16 @@ class GuildEmojiManager extends BaseManager {
   }
 
   /**
-   * Data that can be resolved into an GuildEmoji object. This can be:
-   * * A custom emoji ID
-   * * A GuildEmoji object
-   * * A ReactionEmoji object
+   * 길드 이모지 객체로 리졸브 가능한 데이터. 가능한 데이터:
+   * * 커스텀 이모지 ID
+   * * 길드 이모지 객체
+   * * 리액션 이모지 객체
    * @typedef {Snowflake|GuildEmoji|ReactionEmoji} EmojiResolvable
    */
 
   /**
-   * Resolves an EmojiResolvable to an Emoji object.
-   * @param {EmojiResolvable} emoji The Emoji resolvable to identify
+   * 길드 이모지로 리졸브 가능한 데이터를 길드 이모지 객체 데이터로 리졸브합니다.
+   * @param {EmojiResolvable} emoji 리졸브 할 길드 이모지 데이터
    * @returns {?GuildEmoji}
    */
   resolve(emoji) {
@@ -93,8 +93,8 @@ class GuildEmojiManager extends BaseManager {
   }
 
   /**
-   * Resolves an EmojiResolvable to an Emoji ID string.
-   * @param {EmojiResolvable} emoji The Emoji resolvable to identify
+   * 길드 이모지로 리졸브 가능한 데이터를 길드 이모지 ID 문자열로 리졸브합니다.
+   * @param {EmojiResolvable} emoji 리졸브 할 길드 이모지 데이터
    * @returns {?Snowflake}
    */
   resolveID(emoji) {
@@ -103,15 +103,15 @@ class GuildEmojiManager extends BaseManager {
   }
 
   /**
-   * Data that can be resolved to give an emoji identifier. This can be:
-   * * The unicode representation of an emoji
-   * * An EmojiResolvable
+   * 이모지 식별자로 리졸브 가능한 데이터. 가능한 데이터:
+   * * 이모지의 유니코드 표현
+   * * EmojiResolvable
    * @typedef {string|EmojiResolvable} EmojiIdentifierResolvable
    */
 
   /**
-   * Resolves an EmojiResolvable to an emoji identifier.
-   * @param {EmojiIdentifierResolvable} emoji The emoji resolvable to resolve
+   * 이모지로 리졸브 가능한 데이터를 이모지 식별자로 리졸브합니다
+   * @param {EmojiIdentifierResolvable} emoji 리졸브 할 이모지 데이터
    * @returns {?string}
    */
   resolveIdentifier(emoji) {

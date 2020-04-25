@@ -21,7 +21,7 @@ class GuildChannelManager extends BaseManager {
   }
 
   /**
-   * 이 매니저에 귀속된 캐시
+   * 이 매니저에 귀속된 길드 채널 캐시
    * @type {Collection<Snowflake, GuildChannel>}
    * @name GuildChannelManager#cache
    */
