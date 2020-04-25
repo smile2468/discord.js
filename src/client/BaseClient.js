@@ -7,7 +7,7 @@ const { DefaultOptions } = require('../util/Constants');
 const Util = require('../util/Util');
 
 /**
- * The base class for all clients.
+ * 모든 클라이언트를 위반 기본 클래스
  * @extends {EventEmitter}
  */
 class BaseClient extends EventEmitter {
@@ -15,34 +15,34 @@ class BaseClient extends EventEmitter {
     super();
 
     /**
-     * Timeouts set by {@link BaseClient#setTimeout} that are still active
+     * {@link BaseClient#setTimeout} 에서 설정된 시간 제한은 계속 유지됩니다}
      * @type {Set<Timeout>}
      * @private
      */
     this._timeouts = new Set();
 
     /**
-     * Intervals set by {@link BaseClient#setInterval} that are still active
+     * {@link BaseClient#setInterval} 에서 설정된 간격은 계속 유지됩니다
      * @type {Set<Timeout>}
      * @private
      */
     this._intervals = new Set();
 
     /**
-     * Intervals set by {@link BaseClient#setImmediate} that are still active
+     * {@link BaseClient#setImmediate} 에서 설정된 간격은 계속 유지됩니다
      * @type {Set<Immediate>}
      * @private
      */
     this._immediates = new Set();
 
     /**
-     * The options the client was instantiated with
+     * 클라이언트가 인스턴스화된 옵션
      * @type {ClientOptions}
      */
     this.options = Util.mergeDefault(DefaultOptions, options);
 
     /**
-     * The REST manager of the client
+     * 클라이언트의 REST 매니저
      * @type {RESTManager}
      * @private
      */
@@ -50,7 +50,7 @@ class BaseClient extends EventEmitter {
   }
 
   /**
-   * API shortcut
+   * API 단축어
    * @type {Object}
    * @readonly
    * @private
@@ -60,7 +60,7 @@ class BaseClient extends EventEmitter {
   }
 
   /**
-   * Destroys all assets used by the base client.
+   * 기본 클라이언트가 사용하는 모든 에셋들을 삭제합니다.
    */
   destroy() {
     for (const t of this._timeouts) this.clearTimeout(t);
@@ -72,10 +72,10 @@ class BaseClient extends EventEmitter {
   }
 
   /**
-   * Sets a timeout that will be automatically cancelled if the client is destroyed.
-   * @param {Function} fn Function to execute
-   * @param {number} delay Time to wait before executing (in milliseconds)
-   * @param {...*} args Arguments for the function
+   * 클라이언트가 종료되면 자동으로 취소되는 setTimeout을 설정하세요
+   * @param {Function} fn 실행할 함수
+   * @param {number} delay 실행하기 전 기다릴 시간 (밀리초)
+   * @param {...*} args 함수의 인수
    * @returns {Timeout}
    */
   setTimeout(fn, delay, ...args) {
@@ -88,8 +88,8 @@ class BaseClient extends EventEmitter {
   }
 
   /**
-   * Clears a timeout.
-   * @param {Timeout} timeout Timeout to cancel
+   * 타임아웃을 지웁니다.
+   * @param {Timeout} timeout 취소할 타임아웃
    */
   clearTimeout(timeout) {
     clearTimeout(timeout);
