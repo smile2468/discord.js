@@ -20,7 +20,7 @@ class BaseManager {
     Object.defineProperty(this, 'holds', { value: Structures.get(holds.name) || holds });
 
     /**
-     * 이 매니저와 연결된 클라이언트 인스턴스
+     * 이 매니저와 귀속된 클라이언트 인스턴스
      * @name BaseManager#client
      * @type {Client}
      * @readonly
@@ -28,7 +28,7 @@ class BaseManager {
     Object.defineProperty(this, 'client', { value: client });
 
     /**
-     * 매니저의 컬렉션 타입
+     * 이 매니저의 컬렉션 타입
      * @type {Collection}
      */
     this.cacheType = cacheType;

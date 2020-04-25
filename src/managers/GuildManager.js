@@ -18,7 +18,7 @@ const Permissions = require('../util/Permissions');
 const { resolveColor } = require('../util/Util');
 
 /**
- * Manages API methods for Guilds and stores their cache.
+ * 길드들의 API 메소드를 관리하고 캐시에 저장합니다.
  * @extends {BaseManager}
  */
 class GuildManager extends BaseManager {
@@ -27,67 +27,67 @@ class GuildManager extends BaseManager {
   }
 
   /**
-   * The cache of this Manager
+   * 이 매니저에 귀속된 길드 캐시
    * @type {Collection<Snowflake, Guild>}
    * @name GuildManager#cache
    */
 
   /**
-   * Data that resolves to give a Guild object. This can be:
-   * * A Guild object
-   * * A GuildChannel object
-   * * A GuildEmoji object
-   * * A Role object
-   * * A Snowflake
-   * * An Invite object
+   * 길드 객체로 리졸브 가능한 데이터. 가능한 데이터:
+   * * 길드 객체
+   * * 길드 채널 객체
+   * * 길드 이모지 객체
+   * * 역할 객체
+   * * Snowflake
+   * * 초대 객체
    * @typedef {Guild|GuildChannel|GuildMember|GuildEmoji|Role|Snowflake|Invite} GuildResolvable
    */
 
   /**
-   * Partial data for a Role.
+   * 역할의 partial 데이터.
    * @typedef {Object} PartialRoleData
-   * @property {number} [id] The ID for this role, used to set channel overrides,
-   * this is a placeholder and will be replaced by the API after consumption
-   * @property {string} [name] The name of the role
-   * @property {ColorResolvable} [color] The color of the role, either a hex string or a base 10 number
-   * @property {boolean} [hoist] Whether or not the role should be hoisted
-   * @property {number} [position] The position of the role
-   * @property {PermissionResolvable|number} [permissions] The permissions of the role
-   * @property {boolean} [mentionable] Whether or not the role should be mentionable
+   * @property {number} [id] 채널의 권한을 설정하기 위해 쓰일 역할의 ID
+   * (이것은 placeholder이며 이후 API의 의해서 값이 바뀝니다.)
+   * @property {string} [name] 역할의 이름
+   * @property {ColorResolvable} [color] 역할의 색깔 (Base10 숫자 또는 HEX 코드)
+   * @property {boolean} [hoist] 역할의 호이스팅 여부
+   * @property {number} [position] 역할의 위치(순서)
+   * @property {PermissionResolvable|number} [permissions] 역할의 권한
+   * @property {boolean} [mentionable] 역할의 언급 가능 여부
    */
 
   /**
-   * Partial overwrite data.
+   * 덮어씌울 partial 데이터.
    * @typedef {Object} PartialOverwriteData
-   * @property {number|Snowflake} id The Role or User ID for this overwrite
-   * @property {string} [type] The type of this overwrite
-   * @property {PermissionResolvable} [allow] The permissions to allow
-   * @property {PermissionResolvable} [deny] The permissions to deny
+   * @property {number|Snowflake} id 덮어씌울 역할ID 도는 유저ID
+   * @property {string} [type] 덮어씌울 타입
+   * @property {PermissionResolvable} [allow] 허용할 권한
+   * @property {PermissionResolvable} [deny] 거부할 권한
    */
 
   /**
-   * Partial data for a Channel.
+   * 채널의 partial 데이터.
    * @typedef {Object} PartialChannelData
-   * @property {number} [id] The ID for this channel, used to set its parent,
-   * this is a placeholder and will be replaced by the API after consumption
-   * @property {number} [parentID] The parent ID for this channel
-   * @property {string} [type] The type of the channel
-   * @property {string} name The name of the channel
-   * @property {string} [topic] The topic of the text channel
-   * @property {boolean} [nsfw] Whether the channel is NSFW
-   * @property {number} [bitrate] The bitrate of the voice channel
-   * @property {number} [userLimit] The user limit of the channel
+   * @property {number} [id] 부모(카테고리)를 설정하기 위한 채널 ID
+   * (이것은 placeholder이며 이후 API의 의해서 값이 바뀝니다.)
+   * @property {number} [parentID] 채널의 부모(카테고리) 채널 ID
+   * @property {string} [type] 채널의 타입(종류)
+   * @property {string} name 채널의 이름
+   * @property {string} [topic] 텍스트 채널의 주제(토픽)
+   * @property {boolean} [nsfw] 채널의 NSFW 여부
+   * @property {number} [bitrate] 보이스 채널의 비트레이트
+   * @property {number} [userLimit] 채널의 유저 제한
    * @property {PartialOverwriteData} [permissionOverwrites]
-   * Overwrites of the channel
-   * @property {number} [rateLimitPerUser] The rate limit per user of the channel in seconds
+   * 덮어씌운 권한 데이터
+   * @property {number} [rateLimitPerUser] 각 유저의 초당 레이트리밋(슬로우모드)
    */
 
   /**
-   * Resolves a GuildResolvable to a Guild object.
+   * 길드로 리졸브 가능한 데이터를 길드 객체 데이터로 리졸브합니다.
    * @method resolve
    * @memberof GuildManager
    * @instance
-   * @param {GuildResolvable} guild The guild resolvable to identify
+   * @param {GuildResolvable} guild 리졸브 할 길드 데이터
    * @returns {?Guild}
    */
   resolve(guild) {
@@ -104,11 +104,11 @@ class GuildManager extends BaseManager {
   }
 
   /**
-   * Resolves a GuildResolvable to a Guild ID string.
+   * 길드로 리졸브 가능한 데이터를 길드 ID 문자열로 리졸브합니다.
    * @method resolveID
    * @memberof GuildManager
    * @instance
-   * @param {GuildResolvable} guild The guild resolvable to identify
+   * @param {GuildResolvable} guild 리졸브 할 길드 데이터
    * @returns {?Snowflake}
    */
   resolveID(guild) {
@@ -125,20 +125,19 @@ class GuildManager extends BaseManager {
   }
 
   /**
-   * Creates a guild.
-   * <warn>This is only available to bots in fewer than 10 guilds.</warn>
-   * @param {string} name The name of the guild
-   * @param {Object} [options] Options for the creating
-   * @param {PartialChannelData[]} [options.channels] The channels for this guild
-   * @param {DefaultMessageNotifications} [options.defaultMessageNotifications] The default message notifications
-   * for the guild
-   * @param {ExplicitContentFilterLevel} [options.explicitContentFilter] The explicit content filter level for the guild
-   * @param {BufferResolvable|Base64Resolvable} [options.icon=null] The icon for the guild
-   * @param {string} [options.region] The region for the server, defaults to the closest one available
-   * @param {PartialRoleData[]} [options.roles] The roles for this guild,
-   * the first element of this array is used to change properties of the guild's everyone role.
-   * @param {VerificationLevel} [options.verificationLevel] The verification level for the guild
-   * @returns {Promise<Guild>} The guild that was created
+   * 길드를 생성합니다.
+   * <warn>이 기능은 서버 수가 10 미만인 봇에게만 제공됩니다.</warn>
+   * @param {string} name 길드의 이름
+   * @param {Object} [options] 생성을 위한 옵션
+   * @param {PartialChannelData[]} [options.channels] 이 길드의 채널들
+   * @param {DefaultMessageNotifications} [options.defaultMessageNotifications] 기본 메세지 알림 설정
+   * @param {ExplicitContentFilterLevel} [options.explicitContentFilter] 유해 미디어 컨텐츠 필터 설정
+   * @param {BufferResolvable|Base64Resolvable} [options.icon=null] 길드의 아이콘
+   * @param {string} [options.region] 길드의 위치 (기본값: 봇 서버에서 가장 가까운 위치)
+   * @param {PartialRoleData[]} [options.roles] 이 길드의 역할들
+   * (배열의 첫 요소는 everyone 역할을 설정하기 위해서 사용됩니다.)
+   * @param {VerificationLevel} [options.verificationLevel] 길드의 보안 수준
+   * @returns {Promise<Guild>} 생성된 길드
    */
   async create(
     name,

@@ -37,7 +37,7 @@ class GuildEmojiRoleManager {
   }
 
   /**
-   * 이 매니저에 귀속된 역할 캐시 
+   * 이 매니저에 귀속된 역할 캐시
    * @type {Collection<Snowflake, Role>}
    * @readonly
    */
