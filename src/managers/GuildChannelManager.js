@@ -6,7 +6,7 @@ const PermissionOverwrites = require('../structures/PermissionOverwrites');
 const { ChannelTypes } = require('../util/Constants');
 
 /**
- * Manages API methods for GuildChannels and stores their cache.
+ * 길드 채널들의 API 메소드를 관리하고 캐시에 저장합니다.
  * @extends {BaseManager}
  */
 class GuildChannelManager extends BaseManager {
@@ -14,14 +14,14 @@ class GuildChannelManager extends BaseManager {
     super(guild.client, iterable, GuildChannel);
 
     /**
-     * The guild this Manager belongs to
+     * 매니저에 귀속된 길드
      * @type {Guild}
      */
     this.guild = guild;
   }
 
   /**
-   * The cache of this Manager
+   * 이 매니저에 귀속된 캐시
    * @type {Collection<Snowflake, GuildChannel>}
    * @name GuildChannelManager#cache
    */
@@ -34,54 +34,54 @@ class GuildChannelManager extends BaseManager {
   }
 
   /**
-   * Data that can be resolved to give a Guild Channel object. This can be:
-   * * A GuildChannel object
-   * * A Snowflake
+   * 길드 채널 객체로 리졸브 가능한 데이터. 가능한 데이터:
+   * * 길드 채널 객체
+   * * Snowflake
    * @typedef {GuildChannel|Snowflake} GuildChannelResolvable
    */
 
   /**
-   * Resolves a GuildChannelResolvable to a Channel object.
+   * 길드 채널로 리졸브 가능한 데이터를 길드 채널 객체 데이터로 리졸브합니다.
    * @method resolve
    * @memberof GuildChannelManager
    * @instance
-   * @param {GuildChannelResolvable} channel The GuildChannel resolvable to resolve
+   * @param {GuildChannelResolvable} channel 리졸브 할 길드 채널 데이터
    * @returns {?Channel}
    */
 
   /**
-   * Resolves a GuildChannelResolvable to a channel ID string.
+   * 길드 채널로 리졸브 가능한 데이터를 길드 채널 ID 문자열로 리졸브합니다.
    * @method resolveID
    * @memberof GuildChannelManager
    * @instance
-   * @param {GuildChannelResolvable} channel The GuildChannel resolvable to resolve
+   * @param {GuildChannelResolvable} channel 리졸브 할 길드 채널 데이터
    * @returns {?Snowflake}
    */
 
   /**
-   * Creates a new channel in the guild.
-   * @param {string} name The name of the new channel
-   * @param {Object} [options] Options
-   * @param {string} [options.type='text'] The type of the new channel, either `text`, `voice`, or `category`
-   * @param {string} [options.topic] The topic for the new channel
-   * @param {boolean} [options.nsfw] Whether the new channel is nsfw
-   * @param {number} [options.bitrate] Bitrate of the new channel in bits (only voice)
-   * @param {number} [options.userLimit] Maximum amount of users allowed in the new channel (only voice)
-   * @param {ChannelResolvable} [options.parent] Parent of the new channel
+   * 길드에 새로운 채널을 생성합니다.
+   * @param {string} name 새로운 채널의 이름
+   * @param {Object} [options] 옵션
+   * @param {string} [options.type='text'] 새로운 채널의 타입 (text, voice, category)
+   * @param {string} [options.topic] 새로운 채널의 주제(토픽)
+   * @param {boolean} [options.nsfw] 새로운 채널의 nsfw 여부
+   * @param {number} [options.bitrate] 새로운 채널의 비트레이트를 bit 단위로 설정 (음성 채널만 가능)
+   * @param {number} [options.userLimit] 새로운 채널에 접속 허용된 유저 제한 수 (음성 채널 가능)
+   * @param {ChannelResolvable} [options.parent] 새로운 채널의 부모 채널(카테고리)
    * @param {OverwriteResolvable[]|Collection<Snowflake, OverwriteResolvable>} [options.permissionOverwrites]
-   * Permission overwrites of the new channel
-   * @param {number} [options.position] Position of the new channel
-   * @param {number} [options.rateLimitPerUser] The ratelimit per user for the channel
-   * @param {string} [options.reason] Reason for creating the channel
+   * 덮어씌울 새로운 채널의 권한
+   * @param {number} [options.position] 새로운 채널의 위치
+   * @param {number} [options.rateLimitPerUser] 새로운 채널의 레이트리밋(슬로우모드)
+   * @param {string} [options.reason] 새로운 채널을 생성하는 이유
    * @returns {Promise<GuildChannel>}
    * @example
-   * // Create a new text channel
-   * guild.channels.create('new-general', { reason: 'Needed a cool new channel' })
+   * //새로운 텍스트 채널을 생성합니다
+   * guild.channels.create('새로운-채팅방', { reason: '채팅 폭주로 인한 탈주' })
    *   .then(console.log)
    *   .catch(console.error);
    * @example
-   * // Create a new channel with permission overwrites
-   * guild.channels.create('new-voice', {
+   * // 새로운 채널을 생성하고 아래의 권한으로 덮어씌웁니다
+   * guild.channels.create('새로운-음성채널', {
    *   type: 'voice',
    *   permissionOverwrites: [
    *      {

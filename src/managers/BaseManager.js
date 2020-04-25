@@ -34,7 +34,7 @@ class BaseManager {
     this.cacheType = cacheType;
 
     /**
-     * 데이터 모델에 캐시를 귀속합니다
+     * 데이터 모델에 귀속된 캐시
      * @type {Collection}
      */
     this.cache = new cacheType(...cacheOptions);

@@ -47,8 +47,8 @@ class ChannelManager extends BaseManager {
 
   /**
    * 채널 객체로 리졸브 가능한 데이터. 가능한 데이터:
-   * * A Channel object
-   * * A Snowflake
+   * * 채널 객체
+   * * Snowflake
    * @typedef {Channel|Snowflake} ChannelResolvable
    */
 
@@ -57,7 +57,7 @@ class ChannelManager extends BaseManager {
    * @method resolve
    * @memberof ChannelManager
    * @instance
-   * @param {ChannelResolvable} channel The channel resolvable to resolve
+   * @param {ChannelResolvable} channel 리졸드 할 채널 데이터
    * @returns {?Channel}
    */
 
@@ -66,7 +66,7 @@ class ChannelManager extends BaseManager {
    * @method resolveID
    * @memberof ChannelManager
    * @instance
-   * @param {ChannelResolvable} channel 리졸브할 채널 데이터
+   * @param {ChannelResolvable} channel 리졸브 할 채널 데이터
    * @returns {?Snowflake}
    */
 
