@@ -10,7 +10,7 @@ Partials are opt-in, and you can enable them in the Client options by specifying
 
 ```js
 // Accept partial messages, DM channels, and reactions when emitting events
-new Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
+new Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"] });
 ```
 
 ## Usage & warnings
@@ -30,7 +30,7 @@ This means you have to take time to consider possible parts of your program that
 prevent accessing partial data:
 
 ```js
-client.on('messageDelete', message => {
+client.on("messageDelete", message => {
   console.log(`${message.id} was deleted!`);
   // Partial messages do not contain any content so skip them
   if (!message.partial) {
@@ -39,16 +39,20 @@ client.on('messageDelete', message => {
 });
 
 // You can also try to upgrade partials to full instances:
-client.on('messageReactionAdd', async (reaction, user) => {
+client.on("messageReactionAdd", async (reaction, user) => {
   // If a message gains a reaction and it is uncached, fetch and cache the message
   // You should account for any errors while fetching, it could return API errors if the resource is missing
   if (reaction.message.partial) await reaction.message.fetch();
   // Now the message has been cached and is fully available:
-  console.log(`${reaction.message.author}'s message "${reaction.message.content}" gained a reaction!`);
+  console.log(
+    `${reaction.message.author}'s message "${reaction.message.content}" gained a reaction!`
+  );
   // Fetches and caches the reaction itself, updating resources that were possibly defunct.
   if (reaction.partial) await reaction.fetch();
   // Now the reaction is fully available and the properties will be reflected accurately:
-  console.log(`${reaction.count} user(s) have given the same reaction to this message!`);
+  console.log(
+    `${reaction.count} user(s) have given the same reaction to this message!`
+  );
 });
 ```
 
