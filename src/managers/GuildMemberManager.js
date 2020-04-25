@@ -7,21 +7,21 @@ const Collection = require('../util/Collection');
 const { Events, OPCodes } = require('../util/Constants');
 
 /**
- * Manages API methods for GuildMembers and stores their cache.
+ * 서버 유저들의 API 메소드를 관리하고 캐시에 저장합니다.
  * @extends {BaseManager}
  */
 class GuildMemberManager extends BaseManager {
   constructor(guild, iterable) {
     super(guild.client, iterable, GuildMember);
     /**
-     * The guild this manager belongs to
+     * 이 매니저에 귀속된 길드
      * @type {Guild}
      */
     this.guild = guild;
   }
 
   /**
-   * The cache of this Manager
+   * 이 매니저에 귀속된 서버 유저 캐시
    * @type {Collection<Snowflake, GuildMember>}
    * @name GuildMemberManager#cache
    */
@@ -31,15 +31,15 @@ class GuildMemberManager extends BaseManager {
   }
 
   /**
-   * Data that resolves to give a GuildMember object. This can be:
-   * * A GuildMember object
-   * * A User resolvable
+   * 서버 유저 객체로 리졸브 가능한 데이터. 가능한 데이터:
+   * * 서버 유저 객체
+   * * 리졸브 가능한 유저 객체
    * @typedef {GuildMember|UserResolvable} GuildMemberResolvable
    */
 
   /**
-   * Resolves a GuildMemberResolvable to a GuildMember object.
-   * @param {GuildMemberResolvable} member The user that is part of the guild
+   * 서버 유저로 리졸브 가능한 데이터를 길드 채널 객체 데이터로 리졸브합니다.
+   * @param {GuildMemberResolvable} member 리졸브 할 서버 유저 데이터
    * @returns {?GuildMember}
    */
   resolve(member) {
@@ -51,8 +51,8 @@ class GuildMemberManager extends BaseManager {
   }
 
   /**
-   * Resolves a GuildMemberResolvable to a member ID string.
-   * @param {GuildMemberResolvable} member The user that is part of the guild
+   * 서버 유저로 리졸브 가능한 데이터를 서버 유저 ID 문자열로 리졸브합니다.
+   * @param {GuildMemberResolvable} member 리졸브 할 서버 유저 데이터
    * @returns {?Snowflake}
    */
   resolveID(member) {
@@ -63,24 +63,24 @@ class GuildMemberManager extends BaseManager {
   }
 
   /**
-   * Options used to fetch a single member from a guild.
+   * 길드에서 한 서버 유저를 불러올때 사용할 옵션.
    * @typedef {Object} FetchMemberOptions
-   * @property {UserResolvable} user The user to fetch
-   * @property {boolean} [cache=true] Whether or not to cache the fetched member
+   * @property {UserResolvable} user 불러올 유저의 데이터
+   * @property {boolean} [cache=true] 불러올 유저의 캐싱 여부
    */
 
   /**
-   * Options used to fetch multiple members from a guild.
+   * 길드에서 여러 서버 유저를 불러올때 사용할 옵션.
    * @typedef {Object} FetchMembersOptions
-   * @property {UserResolvable|UserResolvable[]} user The user(s) to fetch
-   * @property {?string} query Limit fetch to members with similar usernames
-   * @property {number} [limit=0] Maximum number of members to request
-   * @property {boolean} [withPresences=false] Whether or not to include the presences
-   * @property {number} [time=120e3] Timeout for receipt of members
+   * @property {UserResolvable|UserResolvable[]} user 불러올 유저(들)의 데이터
+   * @property {?string} query 비슷한 이름을 가진 서버 유저만 불러옵니다
+   * @property {number} [limit=0] 불러올 서버 유저의 제한 수
+   * @property {boolean} [withPresences=false] Presence 데이터를 포함 여부
+   * @property {number} [time=120e3] 불러오는 시간 제한
    */
 
   /**
-   * Fetches member(s) from Discord, even if they're offline.
+   * 디스코드에서 서버 유저를 불러옵니다 (오프라인인 경우 포함).
    * @param {UserResolvable|FetchMemberOptions|FetchMembersOptions} [options] If a UserResolvable, the user to fetch.
    * If undefined, fetches all members.
    * If a query, it limits the results to users with similar usernames.
