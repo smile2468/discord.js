@@ -53,7 +53,7 @@ class ChannelManager extends BaseManager {
    */
 
   /**
-   * Resolves a ChannelResolvable to a Channel object.
+   * 채널로 리졸브 가능한 데이터를 채널 객체 데이터로 리졸브합니다.
    * @method resolve
    * @memberof ChannelManager
    * @instance
@@ -62,21 +62,21 @@ class ChannelManager extends BaseManager {
    */
 
   /**
-   * Resolves a ChannelResolvable to a channel ID string.
+   * 채널로 리졸브 가능한 데이터를 채널 ID 문자열로 리졸브합니다.
    * @method resolveID
    * @memberof ChannelManager
    * @instance
-   * @param {ChannelResolvable} channel The channel resolvable to resolve
+   * @param {ChannelResolvable} channel 리졸브할 채널 데이터
    * @returns {?Snowflake}
    */
 
   /**
-   * Obtains a channel from Discord, or the channel cache if it's already available.
-   * @param {Snowflake} id ID of the channel
-   * @param {boolean} [cache=true] Whether to cache the new channel object if it isn't already
+   * 디스코드로부터 채널을 불러오거나 캐시 데이터에 이미 있는 경우 캐시에서 불러옵니다.
+   * @param {Snowflake} id 채널 ID
+   * @param {boolean} [cache=true] 불러온 채널의 캐싱 여부
    * @returns {Promise<Channel>}
    * @example
-   * // Fetch a channel by its id
+   * // 채널을 ID로 불러옵니다
    * client.channels.fetch('222109930545610754')
    *   .then(channel => console.log(channel.name))
    *   .catch(console.error);
