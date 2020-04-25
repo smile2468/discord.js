@@ -14,7 +14,7 @@
       path: web.md
     - name: Partials
       path: partials.md
-- name: Examples
+- name: 얘시
   files:
     - name: 핑
       path: ping.js
