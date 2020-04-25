@@ -1,4 +1,5 @@
 - name: 일반
+  path: general
   files:
     - name: 환영합니다
       path: welcome.md
@@ -7,6 +8,7 @@
     - name: 자주 물어보는 질문
       path: faq.md
 - name: 주제
+  path: topic
   files:
     - name: 음성
       path: voice.md
@@ -15,6 +17,7 @@
     - name: Partials
       path: partials.md
 - name: 예시
+  path: example
   files:
     - name: 핑
       path: ping.js

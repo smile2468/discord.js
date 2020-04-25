@@ -1,11 +1,11 @@
 'use strict';
 
 /**
- *  당신이 "핑"을 보낼 때마다 봇은 "퐁"을 응답합니다.
+ * 유저에게 자신의 아바타 링크를 전송합니다
  */
 
-// discord.js 모듈 임포트
-const Discord = require('./node_modules/discord.js.js');
+// discord.js 모듈 인포트
+const Discord = require('discord.js');
 
 // 디스코드 클라이언트 인스턴트를 생성
 const client = new Discord.Client();
@@ -20,10 +20,10 @@ client.on('ready', () => {
 
 // 메세지에 대한 이벤트 리스너를 생성합니다.
 client.on('message', message => {
-  // 메세지가 만약 "핑" 이라면,
-  if (message.content === '핑') {
-    // 채널에 "퐁"을 전송
-    message.channel.send('퐁');
+  // 만약 메세지가 "내 아바타는 뭐니" 라면
+  if (message.content === '내 아바타는 뭐니') {
+    // 유저의 아바타 URL을 전송
+    message.reply(message.author.displayAvatarURL());
   }
 });
 

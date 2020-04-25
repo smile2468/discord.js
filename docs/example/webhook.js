@@ -5,7 +5,7 @@
  */
 
 // Import the discord.js module
-const Discord = require('./node_modules/discord.js.js');
+const Discord = require('discord.js');
 /*
  * Create a new webhook
  * The Webbooks ID and token can be found in the URL, when you request that URL, or in the response body.
@@ -26,7 +26,7 @@ hook.send('I am now alive!');
  */
 
 // discord.js 모듈을 불러옵니다.
-const Discord = require('./node_modules/discord.js.js');
+const Discord = require('discord.js');
 /*
  * 새 웹훅을 만듭니다.
  * 당신은 URL 또는 URL 리퀘스트시의 응답에서 Webbooks ID와 토큰은 URL에서 확인할 수 있습니다.

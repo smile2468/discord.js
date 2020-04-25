@@ -5,7 +5,7 @@
  */
 
 // discord.js 모듈 인포트
-const Discord = require('discord.js');
+const Discord = require('./node_modules/discord.js.js');
 
 // 디스코드 클라이언트 인스턴트를 생성
 const client = new Discord.Client();

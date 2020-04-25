@@ -5,7 +5,7 @@
  */
 
 // 요구되는 클래스를 discord.js 모듈에서 가져옵니다.
-const { Client, MessageEmbed } = require('./node_modules/discord.js.js');
+const { Client, MessageEmbed } = require('discord.js');
 
 // 디스코드 클라이언트의 인스턴스를 생성합니다.
 const client = new Client();
