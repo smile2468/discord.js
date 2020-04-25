@@ -1,32 +1,32 @@
-- name: General
+- name: 일반
   files:
-    - name: Welcome
+    - name: 환영합니다
       path: welcome.md
-    - name: Updating your code
+    - name: 코드를 업데이트하기
       path: updating.md
-    - name: FAQ
+    - name: 자주 물어보는 질문
       path: faq.md
-- name: Topics
+- name: 주제
   files:
-    - name: Voice
+    - name: 음성
       path: voice.md
-    - name: Web builds
+    - name: 웹 빌드
       path: web.md
     - name: Partials
       path: partials.md
 - name: Examples
   files:
-    - name: Ping
+    - name: 핑
       path: ping.js
-    - name: Avatars
+    - name: 아바타
       path: avatars.js
-    - name: Attachments
+    - name: 첨부파일
       path: attachments.md
-    - name: Server greeting
+    - name: 길드 인사말
       path: greeting.js
-    - name: Message Embed
+    - name: 엠베드 메세지
       path: embed.js
-    - name: Moderation
+    - name: 관리
       path: moderation.md
-    - name: Webhook
+    - name: 웹훅
       path: webhook.js
