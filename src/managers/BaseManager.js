@@ -34,7 +34,7 @@ class BaseManager {
     this.cacheType = cacheType;
 
     /**
-     * Holds the cache for the data model
+     * 데이터 모델에 캐시를 귀속합니다
      * @type {Collection}
      */
     this.cache = new cacheType(...cacheOptions);
@@ -52,9 +52,9 @@ class BaseManager {
   }
 
   /**
-   * Resolves a data entry to a data Object.
-   * @param {string|Object} idOrInstance The id or instance of something in this Manager
-   * @returns {?Object} An instance from this Manager
+   * 전달받은 ID 또는 인스턴스를 매니저 캐시에서 찾아 인스턴스로 돌려줍니다.
+   * @param {string|Object} idOrInstance 매니저가 관리하는 캐시 데이터의 ID 또는 인스턴스
+   * @returns {?Object} 찾아낸 데이터 인스턴스
    */
   resolve(idOrInstance) {
     if (idOrInstance instanceof this.holds) return idOrInstance;
@@ -63,8 +63,8 @@ class BaseManager {
   }
 
   /**
-   * Resolves a data entry to a instance ID.
-   * @param {string|Object} idOrInstance The id or instance of something in this Manager
+   * 전달받은 ID 또는 인스턴스를 매니저 캐시에서 찾아 인스턴스 ID로 돌려줍니다.
+   * @param {string|Object} idOrInstance 매니저가 관리하는 캐시 데이터의 ID 또는 인스턴스
    * @returns {?Snowflake}
    */
   resolveID(idOrInstance) {

@@ -5,7 +5,7 @@ const Channel = require('../structures/Channel');
 const { Events } = require('../util/Constants');
 
 /**
- * A manager of channels belonging to a client
+ * 클라이언트에 귀속된 채널 매니저
  * @extends {BaseManager}
  */
 class ChannelManager extends BaseManager {
@@ -14,7 +14,7 @@ class ChannelManager extends BaseManager {
   }
 
   /**
-   * The cache of Channels
+   * 채널들의 캐시
    * @type {Collection<Snowflake, Channel>}
    * @name ChannelManager#cache
    */
@@ -46,7 +46,7 @@ class ChannelManager extends BaseManager {
   }
 
   /**
-   * Data that can be resolved to give a Channel object. This can be:
+   * 채널 객체로 리졸브 가능한 데이터. 가능한 데이터:
    * * A Channel object
    * * A Snowflake
    * @typedef {Channel|Snowflake} ChannelResolvable
