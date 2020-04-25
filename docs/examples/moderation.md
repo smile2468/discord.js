@@ -8,7 +8,7 @@ Let's say you have a member that you'd like to kick. Here is an example of how y
 
 ```js
 // Import the discord.js module
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 
 // Create an instance of a Discord client
 const client = new Discord.Client();
@@ -17,16 +17,16 @@ const client = new Discord.Client();
  * The ready event is vital, it means that only _after_ this will your bot start reacting to information
  * received from Discord
  */
-client.on('ready', () => {
-  console.log('I am ready!');
+client.on("ready", () => {
+  console.log("I am ready!");
 });
 
-client.on('message', message => {
+client.on("message", message => {
   // Ignore messages that aren't from a guild
   if (!message.guild) return;
 
   // If the message content starts with "!kick"
-  if (message.content.startsWith('!kick')) {
+  if (message.content.startsWith("!kick")) {
     // Assuming we mention someone in the message, this will return the user
     // Read more about mentions over at https://discord.js.org/#/docs/main/master/class/MessageMentions
     const user = message.mentions.users.first();
@@ -42,7 +42,7 @@ client.on('message', message => {
          * There are big differences between a user and a member
          */
         member
-          .kick('Optional reason that will display in the audit logs')
+          .kick("Optional reason that will display in the audit logs")
           .then(() => {
             // We let the message author know we were able to kick the person
             message.reply(`Successfully kicked ${user.tag}`);
@@ -51,7 +51,7 @@ client.on('message', message => {
             // An error happened
             // This is generally due to the bot not being able to kick the member,
             // either due to missing permissions or role hierarchy
-            message.reply('I was unable to kick the member');
+            message.reply("I was unable to kick the member");
             // Log the error
             console.error(err);
           });
@@ -67,7 +67,7 @@ client.on('message', message => {
 });
 
 // Log our bot in using the token from https://discordapp.com/developers/applications/me
-client.login('your token here');
+client.login("your token here");
 ```
 
 And the result is:
@@ -80,7 +80,7 @@ Banning works the same way as kicking, but it has slightly more options that can
 
 ```js
 // Import the discord.js module
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 
 // Create an instance of a Discord client
 const client = new Discord.Client();
@@ -89,16 +89,16 @@ const client = new Discord.Client();
  * The ready event is vital, it means that only _after_ this will your bot start reacting to information
  * received from Discord
  */
-client.on('ready', () => {
-  console.log('I am ready!');
+client.on("ready", () => {
+  console.log("I am ready!");
 });
 
-client.on('message', message => {
+client.on("message", message => {
   // Ignore messages that aren't from a guild
   if (!message.guild) return;
 
   // if the message content starts with "!ban"
-  if (message.content.startsWith('!ban')) {
+  if (message.content.startsWith("!ban")) {
     // Assuming we mention someone in the message, this will return the user
     // Read more about mentions over at https://discord.js.org/#/docs/main/master/class/MessageMentions
     const user = message.mentions.users.first();
@@ -117,7 +117,7 @@ client.on('message', message => {
          */
         member
           .ban({
-            reason: 'They were bad!',
+            reason: "They were bad!"
           })
           .then(() => {
             // We let the message author know we were able to ban the person
@@ -127,7 +127,7 @@ client.on('message', message => {
             // An error happened
             // This is generally due to the bot not being able to ban the member,
             // either due to missing permissions or role hierarchy
-            message.reply('I was unable to ban the member');
+            message.reply("I was unable to ban the member");
             // Log the error
             console.error(err);
           });
@@ -143,7 +143,7 @@ client.on('message', message => {
 });
 
 // Log our bot in using the token from https://discordapp.com/developers/applications/me
-client.login('your token here');
+client.login("your token here");
 ```
 
 And the result is:

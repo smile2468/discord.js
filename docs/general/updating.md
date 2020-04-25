@@ -1,195 +1,58 @@
-# Version 12.0.0
+# 버전 12.0.0
 
-v12.0.0 contains many new and improved features, optimisations, and bug fixes.
-See [the changelog](https://github.com/discordjs/discord.js/releases/tag/12.0.0) for a full list of changes.
-You can also visit [the guide](https://discordjs.guide/additional-info/changes-in-v12.html) for help with updating your v11 code to v12.
+12.0.0 버전은 많은 새롭고 개선된 기능들과 최적화, 버그 픽스들이 이루어져 있습니다.
+[변경 로그](https://github.com/discordjs/discord.js/releases/tag/12.0.0) 에 모든 변경 사항들이 있습니다.
+당신은 또한 [가이드](https://discordjs.guide/additional-info/changes-in-v12.html) 를 참고해 당신의 v11 코드를 v12 로 업
+데이트 할 수 있습니다.
 
-# Version 11.1.0
+# 버전 11.1.0
 
-v11.1.0 features improved voice and gateway stability, as well as support for new features such as audit logs and searching for messages.
-See [the changelog](https://github.com/discordjs/discord.js/releases/tag/11.1.0) for a full list of changes, including
-information about deprecations.
+v11.1.0 은 게이트웨이와 음성 기능이 안정되고 개선되었습니다 또한 감사 로그 및 메시지 검색과 같은 새로운 기능을 지원합니
+다.
+[변경 로그](https://github.com/discordjs/discord.js/releases/tag/11.1.0) 에 모든 변경 사항들과 사용 중지된 기능들이 포함
+되어 있습니다.
 
-# Version 11
+# 버전 11
 
-Version 11 contains loads of new and improved features, optimisations, and bug fixes.
-See [the changelog](https://github.com/discordjs/discord.js/releases/tag/11.0.0) for a full list of changes.
+버전 11 은 새로운 기능과 향상된 기능, 최적화 및 버그 수정이 포함되어 있습니다.
+[변경 로그](https://github.com/discordjs/discord.js/releases/tag/11.0.0) 에 모든 변경 사항들이 있습니다.
 
-## Significant additions
+## 증요한 사항
 
-- Message Reactions and Embeds (rich text)
-- Support for uws and erlpack for better performance
-- OAuthApplication support
-- Web distributions
+- 메세지 반응과 임베드 (풍부한 글)
+- 성능 향상을 위해 uws 와 erlpack 지원
+- OAuth 애플리케이션 지원
+- 웹 배포
 
-## Breaking changes
+## 주요 변경
 
-### Client.login() no longer supports logging in with email + password
+### Client.login() - 더이상 이메일 + 패스워드 로그인을 지원하지 않습니다.
 
-Logging in with an email and password has always been heavily discouraged since the advent of proper token support, but in v11 we have made the decision to completely remove the functionality, since Hammer & Chisel have [officially stated](https://github.com/hammerandchisel/discord-api-docs/issues/69#issuecomment-223886862) it simply shouldn't be done.
+적절한 토큰 지원이 출현한 이후 e-메일과 암호로 로그인하는 것은 항상 크게 좌절되었지만, v11에서는 Hammer & Chisel이 공식
+적으로 해서는 [안 된다고 언급](https://github.com/hammerandchisel/discord-api-docs/issues/69#issuecomment-223886862)했기
+때문에 기능을 완전히 제거하기로 결정했습니다.
 
-User accounts can still log in with tokens just like bot accounts. To obtain the token for a user account, you can log in to Discord with that account, and use Ctrl + Shift + I to open the developer tools. In the console tab, evaluating `localStorage.token` will give you the token for that account.
+사용자 계정은 봇 계정처럼 토큰으로 로그인할 수 있습니다. 사용자 계정에 대한 토큰을 얻으려면 해당 계정으로 Discord에 로그
+인하고 Ctrl + Shift + I를 사용하여 개발자 도구를 열 수 있습니다. 콘솔 탭에서 `localStorage.token`를 평가하면 해당 계정에
+대한 토큰이 제공됩니다.
 
-### ClientUser.setEmail()/setPassword() now require the current password, as well as setUsername() on user accounts
+### ClientUser.setEmail()/setPassword()에는 현재 암호와 사용자 계정의 setUsername()이 필요합니다.
 
-Since you can no longer log in with email and password, you must provide the current account password to the `setEmail()`, `setPassword()`, and `setUsername()` methods for user accounts (self-bots).
+e-메일 및 비밀번호로 더 이상 로그인할 수 없으므로 사용자 계정(셀프봇)에 대한 `setEmail()`과 `setPassword()` 및 `setUsern ame()` 메서드에 현재 계정 비밀번호를 입력해야 합니다.
 
-### Removed TextBasedChannel.sendTTSMessage()
+### 제거 : TextBasedChannel.sendTTSMessage()
 
-This method was deemed to be an entirely pointless shortcut that virtually nobody even used.
-The same results can be achieved by passing options to `send()` or `sendMessage()`.
+이 방법은 사실상 아무도 사용하지 않는 전혀 무의미한 지름길로 여겨졌습니다.
+`send()` 또는 `SendMessage()` 옵션을 사용하면 동일한 결과를 얻을 수 있습니다.
 
-Example:
-
-```js
-channel.send('Hi there', { tts: true });
-```
-
-### Using Collection.find()/exists() with IDs will throw an error
-
-This is simply to help prevent a common mistake that is made frequently.
-To find something or check its existence using an ID, you should use `.get()` and `.has()` which are part of the [ES6 Map class](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Map), which Collection is an extension of.
-
-# Version 10
-
-Version 10's non-BC changes focus on cleaning up some inconsistencies that exist in previous versions.
-Upgrading from v9 should be quick and painless.
-
-## Client options
-
-All client options have been converted to camelCase rather than snake_case, and `max_message_cache` was renamed to `messageCacheMaxSize`.
-
-v9 code example:
+예시:
 
 ```js
-const client = new Discord.Client({
-  disable_everyone: true,
-  max_message_cache: 500,
-  message_cache_lifetime: 120,
-  message_sweep_interval: 60,
-});
+channel.send("안녕!", { tts: true });
 ```
 
-v10 code example:
+### Collection.find()/exists()를 ID와 함께 사용하면 오류가 발생합니다.
 
-```js
-const client = new Discord.Client({
-  disableEveryone: true,
-  messageCacheMaxSize: 500,
-  messageCacheLifetime: 120,
-  messageSweepInterval: 60,
-});
-```
-
-## Presences
-
-Presences have been completely restructured.
-Previous versions of discord.js assumed that users had the same presence amongst all guilds - with the introduction of sharding, however, this is no longer the case.
-
-v9 discord.js code may look something like this:
-
-```js
-User.status; // the status of the user
-User.game; // the game that the user is playing
-ClientUser.setStatus(status, game, url); // set the new status for the user
-```
-
-v10 moves presences to GuildMember instances. For the sake of simplicity, though, User classes also expose presences.
-When accessing a presence on a User object, it simply finds the first GuildMember for the user, and uses its presence.
-Additionally, the introduction of the Presence class keeps all of the presence data organised.
-
-**It is strongly recommended that you use a GuildMember's presence where available, rather than a User.
-A user may have an entirely different presence between two different guilds.**
-
-v10 code:
-
-```js
-MemberOrUser.presence.status; // the status of the member or user
-MemberOrUser.presence.game; // the game that the member or user is playing
-ClientUser.setStatus(status); // online, idle, dnd, offline
-ClientUser.setGame(game, streamingURL); // a game
-ClientUser.setPresence(fullPresence); // status and game combined
-```
-
-## Voice
-
-Voice has been rewritten internally, but in a backwards-compatible manner.
-There is only one breaking change here; the `disconnected` event was renamed to `disconnect`.
-Several more events have been made available to a VoiceConnection, so see the documentation.
-
-## Events
-
-Many events have been renamed or had their arguments change.
-
-### Client events
-
-| Version 9                                      | Version 10                              |
-| ---------------------------------------------- | --------------------------------------- |
-| guildMemberAdd(guild, member)                  | guildMemberAdd(member)                  |
-| guildMemberAvailable(guild, member)            | guildMemberAvailable(member)            |
-| guildMemberRemove(guild, member)               | guildMemberRemove(member)               |
-| guildMembersChunk(guild, members)              | guildMembersChunk(members)              |
-| guildMemberUpdate(guild, oldMember, newMember) | guildMemberUpdate(oldMember, newMember) |
-| guildRoleCreate(guild, role)                   | roleCreate(role)                        |
-| guildRoleDelete(guild, role)                   | roleDelete(role)                        |
-| guildRoleUpdate(guild, oldRole, newRole)       | roleUpdate(oldRole, newRole)            |
-
-The guild parameter that has been dropped from the guild-related events can still be derived using `member.guild` or `role.guild`.
-
-### VoiceConnection events
-
-| Version 9    | Version 10 |
-| ------------ | ---------- |
-| disconnected | disconnect |
-
-## Dates and timestamps
-
-All dates/timestamps on the structures have been refactored to have a consistent naming scheme and availability.
-All of them are named similarly to this:  
-**Date:** `Message.createdAt`  
-**Timestamp:** `Message.createdTimestamp`  
-See the docs for each structure to see which date/timestamps are available on them.
-
-# Version 9
-
-The version 9 (v9) rewrite takes a much more object-oriented approach than previous versions,
-which allows your code to be much more readable and manageable.
-It's been rebuilt from the ground up and should be much more stable, fixing caching issues that affected
-older versions. It also has support for newer Discord Features, such as emojis.
-
-Version 9, while containing a sizable number of breaking changes, does not require much change in your code's logic -
-most of the concepts are still the same, but loads of functions have been moved around.
-The vast majority of methods you're used to using have been moved out of the Client class,
-into other more relevant classes where they belong.
-Because of this, you will need to convert most of your calls over to the new methods.
-
-Here are a few examples of methods that have changed:
-
-- `Client.sendMessage(channel, message)` ==> `TextChannel.sendMessage(message)`
-  - `Client.sendMessage(user, message)` ==> `User.sendMessage(message)`
-- `Client.updateMessage(message, "New content")` ==> `Message.edit("New Content")`
-- `Client.getChannelLogs(channel, limit)` ==> `TextChannel.fetchMessages({options})`
-- `Server.detailsOfUser(User)` ==> `Server.members.get(User).properties` (retrieving a member gives a GuildMember object)
-- `Client.joinVoiceChannel(voicechannel)` => `VoiceChannel.join()`
-
-A couple more important details:
-
-- `Client.loginWithToken("token")` ==> `client.login("token")`
-- `Client.servers.length` ==> `client.guilds.size` (all instances of `server` are now `guild`)
-
-## No more callbacks!
-
-Version 9 eschews callbacks in favour of Promises. This means all code relying on callbacks must be changed.  
-For example, the following code:
-
-```js
-client.getChannelLogs(channel, 100, function(messages) {
-  console.log(`${messages.length} messages found`);
-});
-```
-
-```js
-channel.fetchMessages({ limit: 100 }).then(messages => {
-  console.log(`${messages.size} messages found`);
-});
-```
+이것은 단순히 자주 일어나는 흔한 실수를 막기 위한 것입니다.
+ID를 사용하여 무언가를 찾거나 존재 여부를 확인하려면 [ES6 지도 클래스](https://developer.mozilla.org/en/docs/Web/JavaScr
+ipt/Reference/Global_Objects/Map)의 일부인 `.get()`와 `.has()`를 사용해야 하며, 이는 컬렉션의 extension입니다.
