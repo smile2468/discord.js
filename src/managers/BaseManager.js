@@ -4,14 +4,14 @@ const Collection = require('../util/Collection');
 let Structures;
 
 /**
- * Manages the API methods of a data model and holds its cache.
+ * 데이터 모델의 API 메소드를 관리하고 캐시에 저장합니다.
  * @abstract
  */
 class BaseManager {
   constructor(client, iterable, holds, cacheType = Collection, ...cacheOptions) {
     if (!Structures) Structures = require('../util/Structures');
     /**
-     * The data structure belonging to this manager
+     * 이 매니저가 귀속한 데이터 구조
      * @name BaseManager#holds
      * @type {Function}
      * @private
@@ -20,7 +20,7 @@ class BaseManager {
     Object.defineProperty(this, 'holds', { value: Structures.get(holds.name) || holds });
 
     /**
-     * The client that instantiated this Manager
+     * 이 매니저와 연결된 클라이언트 인스턴스
      * @name BaseManager#client
      * @type {Client}
      * @readonly
@@ -28,7 +28,7 @@ class BaseManager {
     Object.defineProperty(this, 'client', { value: client });
 
     /**
-     * The type of Collection of the Manager
+     * 매니저의 컬렉션 타입
      * @type {Collection}
      */
     this.cacheType = cacheType;
