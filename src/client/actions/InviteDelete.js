@@ -15,7 +15,7 @@ class InviteDeleteAction extends Action {
     const invite = new Invite(client, inviteData);
     /**
      * 초대링크가 삭제될 때 실행됩니다.
-     * n<info> 이 이벤트는 클라이언트가 `길드 관리(MANAGE_GUILD)` 
+     * <info> 이 이벤트는 클라이언트가 `길드 관리(MANAGE_GUILD)`
      * 또는 해당 채널에 `채널 관리 (MANAGE_CHANNEL)` 권한이 있을 때만 실행됩니다.</info>
      * @event Client#inviteDelete
      * @param {Invite} invite The invite that was deleted
