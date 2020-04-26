@@ -553,7 +553,7 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * 심장 박동을 인정합니다.
+   * 하트비트를 인정합니다.
    * @private
    */
   ackHeartbeat() {
