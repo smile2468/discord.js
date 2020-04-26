@@ -35,7 +35,7 @@ class WebSocketShard extends EventEmitter {
     this.id = id;
 
     /**
-     * 샤드의 현재상태  
+     * 샤드의 현재상태
      * @type {Status}
      */
     this.status = Status.IDLE;
@@ -622,8 +622,8 @@ class WebSocketShard extends EventEmitter {
 
   /**
    * 게이트웨이로 보낼 대기열에 패킷을 추가합니다.
-   * <warn>이 메서드를 사용한다면, 
-   * 모든 [Payload](https://discordapp.com/developers/docs/topics/gateway#commands-and-events-gateway-commands)를 포함하도록 합니다.
+   * <warn>이 메서드를 사용한다면,
+   * 모든 [페이로드](https://discordapp.com/developers/docs/topics/gateway#commands-and-events-gateway-commands)를 포함하도록 합니다.
    * 만약 당신이 무엇을 하고 있는지 모른다면 이 메서드를 사용하지 마세요.</warn>
    * @param {Object} data 전송할 전체 패킷
    * @param {boolean} [important=false] 이 패킷을 대기열에 먼저 추가해야 하는 여부
