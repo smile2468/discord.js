@@ -339,9 +339,9 @@ class WebSocketManager extends EventEmitter {
   }
 
   /**
-   * 더 이상 확인할 수 없는 경우의 시간 초과를 핸들합니다.
-   * @param {number} [remaining] The amount of remaining identify sessions that can be done today
-   * @param {number} [resetAfter] The amount of time in which the identify counter resets
+   * 더 이상 식별할 수 없는 경우 요구된 타임아웃을 핸들합니다.
+   * @param {number} [remaining] 현재 수행할 수 있는 남은 세션의 양
+   * @param {number} [resetAfter] 식별 카운터가 재설정되는 시간
    * @private
    */
   async _handleSessionLimit(remaining, resetAfter) {
@@ -361,9 +361,9 @@ class WebSocketManager extends EventEmitter {
   }
 
   /**
-   * Processes a packet and queues it if this WebSocketManager is not ready.
-   * @param {Object} [packet] The packet to be handled
-   * @param {WebSocketShard} [shard] The shard that will handle this packet
+   * 이 웹소켓 매니저가 준비되지 않은 경우 패킷을 처리하고 대기열에 넣습니다.
+   * @param {Object} [packet] 핸들해야하는 패킷
+   * @param {WebSocketShard} [shard] 이 패킷을 핸들할 샤드
    * @returns {boolean}
    * @private
    */
@@ -390,7 +390,7 @@ class WebSocketManager extends EventEmitter {
   }
 
   /**
-   * Checks whether the client is ready to be marked as ready.
+   * 클라이언트가 준비됨으로 표시될 준비가 되었는지 확인합니다.
    * @private
    */
   async checkShardsReady() {
@@ -418,7 +418,7 @@ class WebSocketManager extends EventEmitter {
   }
 
   /**
-   * Causes the client to be marked as ready and emits the ready event.
+   * 클라이언트가 준비됨으로 표시되고 준비 이벤트를 전송합니다.
    * @private
    */
   triggerClientReady() {
@@ -427,7 +427,7 @@ class WebSocketManager extends EventEmitter {
     this.client.readyAt = new Date();
 
     /**
-     * Emitted when the client becomes ready to start working.
+     * 클라이언트가 준비되고, 일을 시작하면 실행됩니다.
      * @event Client#ready
      */
     this.client.emit(Events.CLIENT_READY);

@@ -16,73 +16,73 @@ if (!browser) {
 }
 
 /**
- * Represents a Shard's WebSocket connection
+ * 샤드의 웹소켓 연결을 나타냅니다.
  */
 class WebSocketShard extends EventEmitter {
   constructor(manager, id) {
     super();
 
     /**
-     * The WebSocketManager of the shard
+     * "샤드의 웹소켓 매니저
      * @type {WebSocketManager}
      */
     this.manager = manager;
 
     /**
-     * The ID of the shard
+     * 샤드의 ID
      * @type {number}
      */
     this.id = id;
 
     /**
-     * The current status of the shard
+     * 샤드의 현재상태  
      * @type {Status}
      */
     this.status = Status.IDLE;
 
     /**
-     * The current sequence of the shard
+     * 샤드의 현재 시퀀스
      * @type {number}
      * @private
      */
     this.sequence = -1;
 
     /**
-     * The sequence of the shard after close
+     * 닫힌 뒤 샤드의 시퀀스
      * @type {number}
      * @private
      */
     this.closeSequence = 0;
 
     /**
-     * The current session ID of the shard
+     * 샤드의 현재 세션 ID
      * @type {string}
      * @private
      */
     this.sessionID = undefined;
 
     /**
-     * The previous heartbeat ping of the shard
+     * 샤드의 이전 하트비트 지연시간
      * @type {number}
      */
     this.ping = -1;
 
     /**
-     * The last time a ping was sent (a timestamp)
+     * 지연시간이 마지막으로 전송된 시간 (타임 스탬프).
      * @type {number}
      * @private
      */
     this.lastPingTimestamp = -1;
 
     /**
-     * If we received a heartbeat ack back. Used to identify zombie connections
+     *  하트 비트 ACK를 다시받은 경우. 좀비 연결을 식별하는 데 사용
      * @type {boolean}
      * @private
      */
     this.lastHeartbeatAcked = true;
 
     /**
-     * Contains the rate limit queue and metadata
+     * 레이트리밋 대기열 및 메타 데이터를 포함합니다
      * @type {Object}
      * @private
      */
@@ -97,7 +97,7 @@ class WebSocketShard extends EventEmitter {
     });
 
     /**
-     * The WebSocket connection for the current shard
+     * 현재 샤드의 웹소켓 연결
      * @type {?WebSocket}
      * @private
      */
@@ -109,42 +109,42 @@ class WebSocketShard extends EventEmitter {
      */
 
     /**
-     * The compression to use
+     * 사용될 압축
      * @type {?Inflate}
      * @private
      */
     Object.defineProperty(this, 'inflate', { value: null, writable: true });
 
     /**
-     * The HELLO timeout
+     * HELLO 타임아웃
      * @type {?NodeJS.Timer}
      * @private
      */
     Object.defineProperty(this, 'helloTimeout', { value: undefined, writable: true });
 
     /**
-     * If the manager attached its event handlers on the shard
+     * 매니저가 샤드에 이벤트 핸들러를 사용했는지 여부
      * @type {boolean}
      * @private
      */
     Object.defineProperty(this, 'eventsAttached', { value: false, writable: true });
 
     /**
-     * A set of guild IDs this shard expects to receive
+     * 샤드가 수신 할 것으로 예상하는 길드 ID 셋
      * @type {?Set<string>}
      * @private
      */
     Object.defineProperty(this, 'expectedGuilds', { value: undefined, writable: true });
 
     /**
-     * The ready timeout
+     * 준비 시간초과
      * @type {?NodeJS.Timer}
      * @private
      */
     Object.defineProperty(this, 'readyTimeout', { value: undefined, writable: true });
 
     /**
-     * Time when the WebSocket connection was opened
+     * 웹소켓 연결이 열린 시간
      * @type {number}
      * @private
      */
@@ -152,8 +152,8 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * Emits a debug event.
-   * @param {string} message The debug message
+   * 디버그 이벤트가 발생하면, 실행됩니다.
+   * @param {string} message 디버그 메세지
    * @private
    */
   debug(message) {
@@ -161,10 +161,10 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * Connects the shard to the gateway.
+   * 샤드를 게이트웨이에 연결합니다.
    * @private
-   * @returns {Promise<void>} A promise that will resolve if the shard turns ready successfully,
-   * or reject if we couldn't connect
+   * @returns {Promise<void>} 샤드가 성공적으로 켜질 경우, 리졸브하고
+   * 연결할 수 없을 때는 리젝트하는 프로미스(Promise)
    */
   connect() {
     const { gateway, client } = this.manager;
@@ -254,7 +254,7 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * Called whenever a connection is opened to the gateway.
+   * 연결이 게이트웨이를 열 때마다 실행됩니다.
    * @private
    */
   onOpen() {
@@ -263,8 +263,8 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * Called whenever a message is received.
-   * @param {MessageEvent} event Event received
+   * 메세지가 수신될 때 실행됩니다.
+   * @param {MessageEvent} event 수신된 이벤트
    * @private
    */
   onMessage({ data }) {
@@ -294,8 +294,8 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * Called whenever an error occurs with the WebSocket.
-   * @param {ErrorEvent} event The error that occurred
+   * 웹소켓에 에러가 발생할 경우 실행됩니다.
+   * @param {ErrorEvent} event 발생한 에러
    * @private
    */
   onError(event) {
@@ -303,10 +303,10 @@ class WebSocketShard extends EventEmitter {
     if (!error) return;
 
     /**
-     * Emitted whenever a shard's WebSocket encounters a connection error.
+     * 샤드의 웹소켓에 연결 오류가 발생할 때마다 실행됩니다.
      * @event Client#shardError
-     * @param {Error} error The encountered error
-     * @param {number} shardID The shard that encountered this error
+     * @param {Error} error 발생한 에러
+     * @param {number} shardID 에러가 발생한 샤드
      */
     this.manager.client.emit(Events.SHARD_ERROR, error, this.id);
   }
@@ -327,8 +327,8 @@ class WebSocketShard extends EventEmitter {
    */
 
   /**
-   * Called whenever a connection to the gateway is closed.
-   * @param {CloseEvent} event Close event that was received
+   * 게이트웨이에 대한 연결이 닫힐 때마다 실행됩니다.
+   * @param {CloseEvent} event 수신된 닫기 이벤트
    * @private
    */
   onClose(event) {
@@ -348,17 +348,17 @@ class WebSocketShard extends EventEmitter {
     this.status = Status.DISCONNECTED;
 
     /**
-     * Emitted when a shard's WebSocket closes.
+     * 샤드의 웹소켓이 닫힐 때 실행됩니다.
      * @private
      * @event WebSocketShard#close
-     * @param {CloseEvent} event The received event
+     * @param {CloseEvent} event 수신된 이벤트
      */
     this.emit(ShardEvents.CLOSE, event);
   }
 
   /**
-   * Called whenever a packet is received.
-   * @param {Object} packet The received packet
+   * 패킷이 수신될 때 실행됩니다.
+   * @param {Object} packet 수신된 패킷
    * @private
    */
   onPacket(packet) {
@@ -370,7 +370,7 @@ class WebSocketShard extends EventEmitter {
     switch (packet.t) {
       case WSEvents.READY:
         /**
-         * Emitted when the shard receives the READY payload and is now waiting for guilds
+         * 샤드가 READY 페이로드 수신 후 길드를 대기 중일 때 실행됩니다.
          * @event WebSocketShard#ready
          */
         this.emit(ShardEvents.READY);
@@ -384,7 +384,7 @@ class WebSocketShard extends EventEmitter {
         break;
       case WSEvents.RESUMED: {
         /**
-         * Emitted when the shard resumes successfully
+         * 샤드가 다시 성공적으로 재개될 때 실행됩니다.
          * @event WebSocketShard#resumed
          */
         this.emit(ShardEvents.RESUMED);
@@ -442,7 +442,7 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * Checks if the shard can be marked as ready
+   * 샤드가 준비됬다고 표시될 수 있는지 확인합니다.
    * @private
    */
   checkReady() {
@@ -457,12 +457,12 @@ class WebSocketShard extends EventEmitter {
       this.status = Status.READY;
 
       /**
-       * Emitted when the shard is fully ready.
-       * This event is emitted if:
-       * * all guilds were received by this shard
-       * * the ready timeout expired, and some guilds are unavailable
+       * 샤드가 완전히 준비되었을 때 실행됩니다.
+       * 이 이벤트는 다음과 같은 경우에 발생합니다.
+       * * 모든 길드가 이 샤드에 의해 수신될 때
+       * * 준비 시간 초과가 만료되었으며 일부 길드는 사용할 수 없음
        * @event WebSocketShard#allReady
-       * @param {?Set<string>} unavailableGuilds Set of unavailable guilds, if any
+       * @param {?Set<string>} unavailableGuilds 복구중인 길드 셋 (존재하는 경우)
        */
       this.emit(ShardEvents.ALL_READY);
       return;
@@ -502,8 +502,8 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * Sets the heartbeat timer for this shard.
-   * @param {number} time If -1, clears the interval, any other number sets an interval
+   * 샤드의 하트비트 타이머를 설정합니다.
+   * @param {number} time 간격을 지우는 경우 -1, 다른 숫자는 간격을 설정합니다.
    * @private
    */
   setHeartbeatTimer(time) {
@@ -522,10 +522,10 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * Sends a heartbeat to the WebSocket.
-   * If this shard didn't receive a heartbeat last time, it will destroy it and reconnect
-   * @param {string} [tag='HeartbeatTimer'] What caused this heartbeat to be sent
-   * @param {boolean} [ignoreHeartbeatAck] If we should send the heartbeat forcefully.
+   * 웹소켓에 하트비트를 보냅니다.
+   * 만약 이전에 이 샤드가 하트비트를 받지 못했다면, 삭제하고 재연결합니다.
+   * @param {string} [tag='HeartbeatTimer'] 이 하트비트를 보낸 원인
+   * @param {boolean} [ignoreHeartbeatAck] 하트비트를 강제로 보내야하는지 여부
    * @private
    */
   sendHeartbeat(
@@ -553,7 +553,7 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * Acknowledges a heartbeat.
+   * 심장 박동을 인정합니다.
    * @private
    */
   ackHeartbeat() {
@@ -564,7 +564,7 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * Identifies the client on the connection.
+   * 연결에서 클라이언트를 식별합니다.
    * @private
    * @returns {void}
    */
@@ -573,7 +573,7 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * Identifies as a new connection on the gateway.
+   * 게이트웨이의 새 연결로 식별합니다.
    * @private
    */
   identifyNew() {
@@ -585,7 +585,7 @@ class WebSocketShard extends EventEmitter {
 
     this.status = Status.IDENTIFYING;
 
-    // Clone the identify payload and assign the token and shard info
+    // 식별 페이로드를 복제하고 토큰 및 샤드 정보를 할당합니다.
     const d = {
       ...client.options.ws,
       token: client.token,
@@ -597,7 +597,7 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * Resumes a session on the gateway.
+   * 게이트웨이의 세션을 다시 시작합니다.
    * @private
    */
   identifyResume() {
@@ -621,12 +621,12 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * Adds a packet to the queue to be sent to the gateway.
-   * <warn>If you use this method, make sure you understand that you need to provide
-   * a full [Payload](https://discordapp.com/developers/docs/topics/gateway#commands-and-events-gateway-commands).
-   * Do not use this method if you don't know what you're doing.</warn>
-   * @param {Object} data The full packet to send
-   * @param {boolean} [important=false] If this packet should be added first in queue
+   * 게이트웨이로 보낼 대기열에 패킷을 추가합니다.
+   * <warn>이 메서드를 사용한다면, 
+   * 모든 [Payload](https://discordapp.com/developers/docs/topics/gateway#commands-and-events-gateway-commands)를 포함하도록 합니다.
+   * 만약 당신이 무엇을 하고 있는지 모른다면 이 메서드를 사용하지 마세요.</warn>
+   * @param {Object} data 전송할 전체 패킷
+   * @param {boolean} [important=false] 이 패킷을 대기열에 먼저 추가해야 하는 여부
    */
   send(data, important = false) {
     this.ratelimit.queue[important ? 'unshift' : 'push'](data);
@@ -634,8 +634,8 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * Sends data, bypassing the queue.
-   * @param {Object} data Packet to send
+   * 대기열을 무시하고 데이터를 보냅니다.
+   * @param {Object} data 전송할 패킷
    * @returns {void}
    * @private
    */
@@ -652,7 +652,7 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * Processes the current WebSocket queue.
+   * 현재 웹소켓 대기열을 처리합니다.
    * @returns {void}
    * @private
    */
@@ -674,7 +674,7 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * Destroys this shard and closes its WebSocket connection.
+   * 이 샤드를 삭제하고 웹소켓 연결을 닫습니다.
    * @param {Object} [options={ closeCode: 1000, reset: false, emit: true, log: true }] Options for destroying the shard
    * @private
    */
@@ -739,7 +739,7 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * Cleans up the WebSocket connection listeners.
+   * 웹소켓 연결 리스너를 정리합니다.
    * @private
    */
   _cleanupConnection() {
@@ -747,12 +747,12 @@ class WebSocketShard extends EventEmitter {
   }
 
   /**
-   * Emits the DESTROYED event on the shard
+   * DESTROYED 이벤트를 샤드에서 실행합니다.
    * @private
    */
   _emitDestroyed() {
     /**
-     * Emitted when a shard is destroyed, but no WebSocket connection was present.
+     * 샤드가 파괴되었지만 WebSocket 연결이 존재하지 않을 때 실행됩니다.
      * @private
      * @event WebSocketShard#destroyed
      */
