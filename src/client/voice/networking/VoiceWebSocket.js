@@ -6,7 +6,7 @@ const { Error } = require('../../../errors');
 const { OPCodes, VoiceOPCodes } = require('../../../util/Constants');
 
 /**
- * Represents a Voice Connection's WebSocket.
+ * 음성 연결의 웹소켓을 나타냅니다.
  * @extends {EventEmitter}
  * @private
  */
@@ -14,13 +14,13 @@ class VoiceWebSocket extends EventEmitter {
   constructor(connection) {
     super();
     /**
-     * The Voice Connection that this WebSocket serves
+     * 이 웹소켓이 제공하는 음성 연결
      * @type {VoiceConnection}
      */
     this.connection = connection;
 
     /**
-     * How many connection attempts have been made
+     * 연결 시도 횟수
      * @type {number}
      */
     this.attempts = 0;
@@ -30,7 +30,7 @@ class VoiceWebSocket extends EventEmitter {
   }
 
   /**
-   * The client of this voice WebSocket
+   * 해당 음성 웹소켓의 클라이언트
    * @type {Client}
    * @readonly
    */
@@ -45,7 +45,7 @@ class VoiceWebSocket extends EventEmitter {
   }
 
   /**
-   * Resets the current WebSocket.
+   * 현재 웹소켓을 리셋합니다.
    */
   reset() {
     this.emit('debug', `[WS] reset requested`);
@@ -57,7 +57,7 @@ class VoiceWebSocket extends EventEmitter {
   }
 
   /**
-   * Starts connecting to the Voice WebSocket Server.
+   * 음성 웹소켓 길드에 연결을 시도합니다.
    */
   connect() {
     this.emit('debug', `[WS] connect requested`);
@@ -71,7 +71,7 @@ class VoiceWebSocket extends EventEmitter {
     this.attempts++;
 
     /**
-     * The actual WebSocket used to connect to the Voice WebSocket Server.
+     * 음성 웹소켓 서버에 사용되는 실제 웹소켓
      * @type {WebSocket}
      */
     this.ws = WebSocket.create(`wss://${this.connection.authentication.endpoint}/`, { v: 4 });
@@ -83,8 +83,8 @@ class VoiceWebSocket extends EventEmitter {
   }
 
   /**
-   * Sends data to the WebSocket if it is open.
-   * @param {string} data The data to send to the WebSocket
+   * 열려 있는 경우 웹소켓으로 데이터를 보냅니다.
+   * @param {string} data 웹소켓으로 전송할 데이터
    * @returns {Promise<string>}
    */
   send(data) {
@@ -99,8 +99,8 @@ class VoiceWebSocket extends EventEmitter {
   }
 
   /**
-   * JSON.stringify's a packet and then sends it to the WebSocket Server.
-   * @param {Object} packet The packet to send
+   * JSON.stringify를 하고 패킷을 웹소켓 길드로 보냅니다.
+   * @param {Object} packet 전송할 패킷
    * @returns {Promise<string>}
    */
   sendPacket(packet) {
@@ -113,7 +113,7 @@ class VoiceWebSocket extends EventEmitter {
   }
 
   /**
-   * Called whenever the WebSocket opens.
+   * 웹소켓이 열릴 때 실행됩니다.
    */
   onOpen() {
     this.emit('debug', `[WS] opened at gateway ${this.connection.authentication.endpoint}`);
@@ -131,8 +131,8 @@ class VoiceWebSocket extends EventEmitter {
   }
 
   /**
-   * Called whenever a message is received from the WebSocket.
-   * @param {MessageEvent} event The message event that was received
+   * 웹소켓이 메세지를 감지할 때, 실행됩니다.
+   * @param {MessageEvent} event 수신된 메세지 이벤트
    * @returns {void}
    */
   onMessage(event) {
@@ -144,7 +144,7 @@ class VoiceWebSocket extends EventEmitter {
   }
 
   /**
-   * Called whenever the connection to the WebSocket server is lost.
+   * 웹소켓 길드에 대한 연결이 끊길 때 실행됩니다.
    */
   onClose() {
     this.emit('debug', `[WS] closed`);
@@ -152,8 +152,8 @@ class VoiceWebSocket extends EventEmitter {
   }
 
   /**
-   * Called whenever an error occurs with the WebSocket.
-   * @param {Error} error The error that occurred
+   * 웹소켓 에러가 발생했을 때 실행됩니다.
+   * @param {Error} error 발생한 에러
    */
   onError(error) {
     this.emit('debug', `[WS] Error: ${error}`);
@@ -161,8 +161,8 @@ class VoiceWebSocket extends EventEmitter {
   }
 
   /**
-   * Called whenever a valid packet is received from the WebSocket.
-   * @param {Object} packet The received packet
+   * 웹소켓에 유효한 패킷이 수신될 때마다 호출됩니다.
+   * @param {Object} packet 수신된 패킷
    */
   onPacket(packet) {
     this.emit('debug', `[WS] << ${JSON.stringify(packet)}`);
@@ -172,8 +172,8 @@ class VoiceWebSocket extends EventEmitter {
         break;
       case VoiceOPCodes.READY:
         /**
-         * Emitted once the voice WebSocket receives the ready packet.
-         * @param {Object} packet The received packet
+         * 웹소켓이 준비 패킷을 수신하면 실행됩니다.
+         * @param {Object} packet 수신된 패킷
          * @event VoiceWebSocket#ready
          */
         this.emit('ready', packet.d);
@@ -182,7 +182,7 @@ class VoiceWebSocket extends EventEmitter {
       case VoiceOPCodes.SESSION_DESCRIPTION:
         packet.d.secret_key = new Uint8Array(packet.d.secret_key);
         /**
-         * Emitted once the Voice Websocket receives a description of this voice session.
+         * 음성 웹소켓이 이 음성 세션에 대한 설명을 수신하면 실행됩니다.
          * @param {Object} packet The received packet
          * @event VoiceWebSocket#sessionDescription
          */
@@ -200,7 +200,7 @@ class VoiceWebSocket extends EventEmitter {
         break;
       case VoiceOPCodes.SPEAKING:
         /**
-         * Emitted whenever a speaking packet is received.
+         * 말하기 패킷이 수신될 때마다 실행됩니다.
          * @param {Object} data
          * @event VoiceWebSocket#startSpeaking
          */
@@ -208,7 +208,7 @@ class VoiceWebSocket extends EventEmitter {
         break;
       default:
         /**
-         * Emitted when an unhandled packet is received.
+         * 핸들되지 않은 패킷이 수신될 때 실행됩니다.
          * @param {Object} packet
          * @event VoiceWebSocket#unknownPacket
          */
@@ -218,8 +218,8 @@ class VoiceWebSocket extends EventEmitter {
   }
 
   /**
-   * Sets an interval at which to send a heartbeat packet to the WebSocket.
-   * @param {number} interval The interval at which to send a heartbeat packet
+   * 웹소켓이 하트비트 패킷을 보낼 간격을 설정합니다.
+   * @param {number} interval 하트비트 패킷을 보내는 간격
    */
   setHeartbeat(interval) {
     if (!interval || isNaN(interval)) {
@@ -228,8 +228,8 @@ class VoiceWebSocket extends EventEmitter {
     }
     if (this.heartbeatInterval) {
       /**
-       * Emitted whenever the voice WebSocket encounters a non-fatal error.
-       * @param {string} warn The warning
+       *음성 웹소켓이 치명적이지 않은 오류가 발생할 때마다 실행됩니다.
+       * @param {string} warn 경고
        * @event VoiceWebSocket#warn
        */
       this.emit('warn', 'A voice heartbeat interval is being overwritten');
@@ -239,7 +239,7 @@ class VoiceWebSocket extends EventEmitter {
   }
 
   /**
-   * Clears a heartbeat interval, if one exists.
+   * 하트비트 간격 존재하는 경우을 초기화합니다.
    */
   clearHeartbeat() {
     if (!this.heartbeatInterval) {
@@ -251,7 +251,7 @@ class VoiceWebSocket extends EventEmitter {
   }
 
   /**
-   * Sends a heartbeat packet.
+   * 하트비트 패킷을 전송합니다.
    */
   sendHeartbeat() {
     this.sendPacket({ op: VoiceOPCodes.HEARTBEAT, d: Math.floor(Math.random() * 10e10) }).catch(() => {

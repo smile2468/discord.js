@@ -6,10 +6,10 @@ const PacketHandler = require('./PacketHandler');
 const { Error } = require('../../../errors');
 
 /**
- * Receives audio packets from a voice connection.
+ * 음성 연결에서 오디오 패킷 수신합니다.
  * @example
  * const receiver = connection.createReceiver();
- * // opusStream is a ReadableStream - that means you could play it back to a voice channel if you wanted to!
+ * // OpusStream은 읽기 쉬운 스트림이다. 여러분이 원한다면 음성 채널로 다시 재생할 수 있습니다.
  * const opusStream = receiver.createStream(user);
  */
 class VoiceReceiver extends EventEmitter {
@@ -18,26 +18,25 @@ class VoiceReceiver extends EventEmitter {
     this.connection = connection;
     this.packets = new PacketHandler(this);
     /**
-     * Emitted whenever there is a warning
+     * 경고가 있는 경우 실행됩니다.
      * @event VoiceReceiver#debug
-     * @param {Error|string} error The error or message to debug
+     * @param {Error|string} error 디버깅을 위한 에러 혹은 메세지
      */
     this.packets.on('error', err => this.emit('debug', err));
   }
 
   /**
-   * Options passed to `VoiceReceiver#createStream`.
+   * `VoiceReceiver#createStream`에 대한 옵션이 전달되었습니다.
    * @typedef {Object} ReceiveStreamOptions
-   * @property {string} [mode='opus'] The mode for audio output. This defaults to opus, meaning discord.js won't decode
-   * the packets for you. You can set this to 'pcm' so that the stream's output will be 16-bit little-endian stereo
-   * audio
+   * @property {string} [mode='opus'] 오디오 출력 모드. 이 기본값은 opus로, 즉 discord.js가 디코딩되지 않음을 의미합니다.
+   * 당신에 대한 패킷. 스트림의 출력이 16비트 작은 endian 스테레오가 되도록 이것을 'pcm'로 설정할 수 있다.
    * @property {string} [end='silence'] When the stream should be destroyed. If `silence`, this will be when the user
    * stops talking. Otherwise, if `manual`, this should be handled by you.
    */
 
   /**
-   * Creates a new audio receiving stream. If a stream already exists for a user, then that stream will be returned
-   * rather than generating a new one.
+   *"새 오디오 수신 스트림을 생성합니다. 유저를 위한 스트림이 이미 존재하는 경우, 
+   * 새로 생성하지 않고 존재하던 스트림을 반환합니다.
    * @param {UserResolvable} user The user to start listening to.
    * @param {ReceiveStreamOptions} options Options.
    * @returns {ReadableStream}
