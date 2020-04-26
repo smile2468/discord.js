@@ -8,7 +8,7 @@ const StreamDispatcher = require('../dispatcher/StreamDispatcher');
 const FFMPEG_ARGUMENTS = ['-analyzeduration', '0', '-loglevel', '0', '-f', 's16le', '-ar', '48000', '-ac', '2'];
 
 /**
- * An Audio Player for a Voice Connection.
+ * 음성 연결을 위한 오디오 플레이어
  * @private
  * @extends {EventEmitter}
  */

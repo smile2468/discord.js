@@ -6,7 +6,7 @@ const { Error } = require('../../../errors');
 const { VoiceOPCodes } = require('../../../util/Constants');
 
 /**
- * Represents a UDP client for a Voice Connection.
+ * 음성 연결을 위한 UDP 클라이언트를 나타냅니다.
  * @extends {EventEmitter}
  * @private
  */
@@ -15,31 +15,31 @@ class VoiceConnectionUDPClient extends EventEmitter {
     super();
 
     /**
-     * The voice connection that this UDP client serves
+     * 이 UDP 클라이언트가 제공하는 음성 연결
      * @type {VoiceConnection}
      */
     this.voiceConnection = voiceConnection;
 
     /**
-     * The UDP socket
+     * UDP 소켓
      * @type {?Socket}
      */
     this.socket = null;
 
     /**
-     * The address of the Discord voice server
+     * 디스코드 보이스 길드의 주소
      * @type {?string}
      */
     this.discordAddress = null;
 
     /**
-     * The local IP address
+     * 로컬 IP 주소
      * @type {?string}
      */
     this.localAddress = null;
 
     /**
-     * The local port
+     * 로컬 포트
      * @type {?string}
      */
     this.localPort = null;
@@ -60,7 +60,7 @@ class VoiceConnectionUDPClient extends EventEmitter {
   }
 
   /**
-   * The port of the Discord voice server
+   * 디스코드 보이스 길드 포트
    * @type {number}
    * @readonly
    */
@@ -69,8 +69,8 @@ class VoiceConnectionUDPClient extends EventEmitter {
   }
 
   /**
-   * Send a packet to the UDP client.
-   * @param {Object} packet The packet to send
+   * UDP 클라이언트로 패킷을 보냅니다.
+   * @param {Object} packet 전송할 패킷
    * @returns {Promise<Object>}
    */
   send(packet) {

@@ -3,7 +3,7 @@
 const BasePlayer = require('./BasePlayer');
 
 /**
- * An Audio Player for a Voice Connection.
+ * 음성 연결을 위한 오디오 플레이어
  * @private
  * @extends {BasePlayer}
  */
@@ -11,7 +11,7 @@ class AudioPlayer extends BasePlayer {
   constructor(voiceConnection) {
     super();
     /**
-     * The voice connection that the player serves
+     * 음성 플레이어가 제공하는 음성 연결
      * @type {VoiceConnection}
      */
     this.voiceConnection = voiceConnection;

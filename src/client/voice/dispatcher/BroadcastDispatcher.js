@@ -3,7 +3,7 @@
 const StreamDispatcher = require('./StreamDispatcher');
 
 /**
- * The class that sends voice packet data to the voice connection.
+ * 음성 패킷 데이터를 음성 연결로 보내는 클래스입니다.
  * @implements {VolumeInterface}
  * @extends {StreamDispatcher}
  */
@@ -30,10 +30,10 @@ class BroadcastDispatcher extends StreamDispatcher {
   }
 
   /**
-   * Set the bitrate of the current Opus encoder if using a compatible Opus stream.
-   * @param {number} value New bitrate, in kbps
-   * If set to 'auto', 48kbps will be used
-   * @returns {boolean} true if the bitrate has been successfully changed.
+   * 호환되는 Opus 스트림을 사용하는 경우 현재 Opus 인코더의 비트 전송률을 설정합니다.
+   * @param {number} value 새로운 비트 전송률(kbps)
+   * `'auto'로 설정하면 48kbps가 사용됩니다.`
+   * @returns {boolean} 비트 전송률이 성공적으로 변경되었는지 여부
    */
   setBitrate(value) {
     if (!value || !this.streams.opus || !this.streams.opus.setBitrate) return false;

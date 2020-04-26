@@ -4,7 +4,7 @@ const BasePlayer = require('./BasePlayer');
 const BroadcastDispatcher = require('../dispatcher/BroadcastDispatcher');
 
 /**
- * An Audio Player for a Voice Connection.
+ * 음성 연결을 위한 오디오 플레이어
  * @private
  * @extends {BasePlayer}
  */
@@ -12,7 +12,7 @@ class AudioPlayer extends BasePlayer {
   constructor(broadcast) {
     super();
     /**
-     * The broadcast that the player serves
+     * 음성 플레이어가 실행하는 보로드케스트
      * @type {VoiceBroadcast}
      */
     this.broadcast = broadcast;

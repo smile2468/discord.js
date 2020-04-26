@@ -18,11 +18,11 @@ const nonce = Buffer.alloc(24);
  */
 
 /**
- * The class that sends voice packet data to the voice connection.
+ * 음성 패킷 데이터를 음성 연결로 보내는 클래스입니다.
  * ```js
- * // Obtained using:
+ * // 다음으로 가져옵니다.
  * voiceChannel.join().then(connection => {
- *   // You can play a file or a stream here:
+ *   // 파일 또는 스트림을 재생할 수 있습니다:
  *   const dispatcher = connection.play('/home/hydrabolt/audio.mp3');
  * });
  * ```
@@ -34,7 +34,7 @@ class StreamDispatcher extends Writable {
     const streamOptions = { seek, volume, fec, plp, bitrate, highWaterMark };
     super(streamOptions);
     /**
-     * The Audio Player that controls this dispatcher
+     * 디스파처(dispatcher)를 관리하는 오디오 플레이어
      * @type {AudioPlayer}
      */
     this.player = player;
@@ -46,14 +46,14 @@ class StreamDispatcher extends Writable {
     this._nonceBuffer = Buffer.alloc(24);
 
     /**
-     * The time that the stream was paused at (null if not paused)
+     * 스트림이 일시 중지된 시간 (중지되지 않은 경우 null)
      * @type {?number}
      */
     this.pausedSince = null;
     this._writeCallback = null;
 
     /**
-     * The broadcast controlling this dispatcher, if any
+     * 이 디스파처(dispatcher)를 제어하는 브로드캐스트 (존재하는 경우)
      * @type {?VoiceBroadcast}
      */
     this.broadcast = this.streams.broadcast;
@@ -74,7 +74,7 @@ class StreamDispatcher extends Writable {
 
     const streamError = (type, err) => {
       /**
-       * Emitted when the dispatcher encounters an error.
+       * 발송인에게 오류가 발생할 때 실행됩니다.
        * @event StreamDispatcher#error
        */
       if (type && err) {
@@ -98,7 +98,7 @@ class StreamDispatcher extends Writable {
   _write(chunk, enc, done) {
     if (!this.startTime) {
       /**
-       * Emitted once the stream has started to play.
+       * 스트림이 재생되기 시작하면 실행됩니다.
        * @event StreamDispatcher#start
        */
       this.emit('start');
@@ -122,8 +122,8 @@ class StreamDispatcher extends Writable {
   }
 
   /**
-   * Pauses playback
-   * @param {boolean} [silence=false] Whether to play silence while paused to prevent audio glitches
+   * 재생을 일시 중지합니다.
+   * @param {boolean} [silence=false] 오디오 결함을 방지하기 위해 일시 중지된 상태에서 고요함(silence)을 재생할지 여부
    */
   pause(silence = false) {
     if (this.paused) return;
@@ -138,7 +138,7 @@ class StreamDispatcher extends Writable {
   }
 
   /**
-   * Whether or not playback is paused
+   * 재생 일시 정지 여부
    * @type {boolean}
    * @readonly
    */
@@ -147,7 +147,7 @@ class StreamDispatcher extends Writable {
   }
 
   /**
-   * Total time that this dispatcher has been paused in milliseconds
+   * 이 디스파처(dispatcher)가 일시 중지된 총 시간(밀리초)입니다.
    * @type {number}
    * @readonly
    */
@@ -156,7 +156,7 @@ class StreamDispatcher extends Writable {
   }
 
   /**
-   * Resumes playback
+   * 재생을 다시 시작합니다.
    */
   resume() {
     if (!this.pausedSince) return;
@@ -173,7 +173,7 @@ class StreamDispatcher extends Writable {
   }
 
   /**
-   * The time (in milliseconds) that the dispatcher has actually been playing audio for
+   * 이 디스파처(dispatcher)가 실제로 오디오를 재생한 시간 (밀리초)
    * @type {number}
    * @readonly
    */
@@ -182,7 +182,7 @@ class StreamDispatcher extends Writable {
   }
 
   /**
-   * The time (in milliseconds) that the dispatcher has been playing audio for, taking into account skips and pauses
+   * 건너뛰기와 일시정지를 포함해, 디스파처(dispatcher)가 오디오를 재생한 시간 (밀리초)
    * @type {number}
    * @readonly
    */
@@ -191,10 +191,10 @@ class StreamDispatcher extends Writable {
   }
 
   /**
-   * Set the bitrate of the current Opus encoder if using a compatible Opus stream.
-   * @param {number} value New bitrate, in kbps
-   * If set to 'auto', the voice channel's bitrate will be used
-   * @returns {boolean} true if the bitrate has been successfully changed.
+   * 호환되는 Opus 스트림을 사용하는 경우 현재 Opus 인코더의 비트 전송률을 설정합니다.
+   * @param {number} value 새 비트 전송률(kbps)
+   * 'auto'로 설정하면 48kps가 사용됨
+   * @returns {boolean} 비트 전송률이 성공적으로 변경되었는지 여부
    */
   setBitrate(value) {
     if (!value || !this.bitrateEditable) return false;
@@ -204,9 +204,9 @@ class StreamDispatcher extends Writable {
   }
 
   /**
-   * Sets the expected packet loss percentage if using a compatible Opus stream.
-   * @param {number} value between 0 and 1
-   * @returns {boolean} Returns true if it was successfully set.
+   * 호환되는 Opus 스트림을 사용하는 경우 예상되는 패킷 손실 비율을 설정하세요.
+   * @param {number} value 0에서 1사이
+   * @returns {boolean} 성공적으로 설정된 경우 "true"를 반환합니다.
    */
   setPLP(value) {
     if (!this.bitrateEditable) return false;
@@ -215,9 +215,9 @@ class StreamDispatcher extends Writable {
   }
 
   /**
-   * Enables or disables forward error correction if using a compatible Opus stream.
+   * 호환되는 Opus 스트림을 사용하는 경우 오류 전달 보정을 활성화하거나 비활성화하세요.
    * @param {boolean} enabled true to enable
-   * @returns {boolean} Returns true if it was successfully set.
+   * @returns {boolean} 성공적으로 설정된 경우 "true"를 반환합니다.
    */
   setFEC(enabled) {
     if (!this.bitrateEditable) return false;
@@ -283,7 +283,7 @@ class StreamDispatcher extends Writable {
 
   _sendPacket(packet) {
     /**
-     * Emitted whenever the dispatcher has debug information.
+     * 디스파처(dispatcher)에게 디버그 정보가 있을 때마다 방출됩니다.
      * @event StreamDispatcher#debug
      * @param {string} info The debug info
      */
@@ -303,9 +303,9 @@ class StreamDispatcher extends Writable {
       this.player.voiceConnection.setSpeaking(value);
     }
     /**
-     * Emitted when the dispatcher starts/stops speaking.
+     * 디스파처(dispatcher)가 말하기를 시작/중지할 때 실행됩니다.
      * @event StreamDispatcher#speaking
-     * @param {boolean} value Whether or not the dispatcher is speaking
+     * @param {boolean} value 디스파처(dispatcher)가 말하고 있는지 여부
      */
     this.emit('speaking', value);
   }
@@ -315,7 +315,7 @@ class StreamDispatcher extends Writable {
   }
 
   /**
-   * Whether or not the Opus bitrate of this stream is editable
+   * 이 스트림의 Opus 비트 전송률을 편집할 수 있는지 여부를 나타냅니다.
    * @type {boolean}
    * @readonly
    */
@@ -323,7 +323,7 @@ class StreamDispatcher extends Writable {
     return this.streams.opus && this.streams.opus.setBitrate;
   }
 
-  // Volume
+  // 볼륨
   get volume() {
     return this.streams.volume ? this.streams.volume.volume : 1;
   }
@@ -331,10 +331,10 @@ class StreamDispatcher extends Writable {
   setVolume(value) {
     if (!this.streams.volume) return false;
     /**
-     * Emitted when the volume of this dispatcher changes.
+     * 이 디스파처(dispatcher)의 볼륨이 변경될 때 실행됩니다.
      * @event StreamDispatcher#volumeChange
-     * @param {number} oldVolume The old volume of this dispatcher
-     * @param {number} newVolume The new volume of this dispatcher
+     * @param {number} oldVolume 업데이트 이전의 볼륨
+     * @param {number} newVolume 업데이트 이후의 볼륨
      */
     this.emit('volumeChange', this.volume, value);
     this.streams.volume.setVolume(value);
