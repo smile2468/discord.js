@@ -15,10 +15,10 @@ class GuildRoleUpdateAction extends Action {
       if (role) {
         old = role._update(data.role);
         /**
-         * Emitted whenever a guild role is updated.
+         * 길드 역할이 업데이트될 때 실행됩니다.
          * @event Client#roleUpdate
-         * @param {Role} oldRole The role before the update
-         * @param {Role} newRole The role after the update
+         * @param {Role} oldRole 업데이트 이전의 역할
+         * @param {Role} newRole 업데이트 이후의 역할
          */
         client.emit(Events.GUILD_ROLE_UPDATE, old, role);
       }

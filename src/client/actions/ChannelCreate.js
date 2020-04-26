@@ -10,9 +10,9 @@ class ChannelCreateAction extends Action {
     const channel = client.channels.add(data);
     if (!existing && channel) {
       /**
-       * Emitted whenever a channel is created.
+       * 채널이 생성될 때 실행됩니다.
        * @event Client#channelCreate
-       * @param {DMChannel|GuildChannel} channel The channel that was created
+       * @param {DMChannel|GuildChannel} channel 생성된 채널
        */
       client.emit(Events.CHANNEL_CREATE, channel);
     }

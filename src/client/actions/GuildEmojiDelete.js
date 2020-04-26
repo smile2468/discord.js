@@ -8,9 +8,9 @@ class GuildEmojiDeleteAction extends Action {
     emoji.guild.emojis.cache.delete(emoji.id);
     emoji.deleted = true;
     /**
-     * Emitted whenever a custom emoji is deleted in a guild.
+     * 커스텀 이모지가 삭제될 때 실행됩니다.
      * @event Client#emojiDelete
-     * @param {GuildEmoji} emoji The emoji that was deleted
+     * @param {GuildEmoji} emoji 삭제된 이모지
      */
     this.client.emit(Events.GUILD_EMOJI_DELETE, emoji);
     return { emoji };

@@ -8,9 +8,10 @@ class WebhooksUpdate extends Action {
     const client = this.client;
     const channel = client.channels.cache.get(data.channel_id);
     /**
-     * Emitted whenever a guild text channel has its webhooks changed.
+     * 길드의 텍스트 채널이 웹훅 업데이트를 포함한 경우 실행됩니다.
+
      * @event Client#webhookUpdate
-     * @param {TextChannel} channel The channel that had a webhook update
+     * @param {TextChannel} channel 웹훅이 업데이트된 채널
      */
     if (channel) client.emit(Events.WEBHOOKS_UPDATE, channel);
   }

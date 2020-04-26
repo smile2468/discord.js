@@ -31,10 +31,10 @@ class PresenceUpdateAction extends Action {
     guild.presences.add(Object.assign(data, { guild }));
     if (member && this.client.listenerCount(Events.PRESENCE_UPDATE)) {
       /**
-       * Emitted whenever a guild member's presence (e.g. status, activity) is changed.
+       * 길드 멤버의 프리센스 ( 예) 상태, 게임)이 변경 되었을 때 실행됩니다.
        * @event Client#presenceUpdate
-       * @param {?Presence} oldPresence The presence before the update, if one at all
-       * @param {Presence} newPresence The presence after the update
+       * @param {?Presence} oldPresence 업데이트 이전의 프리센스 (존재하는 경우)
+       * @param {Presence} newPresence 업데이트 이후의 프리센스
        */
       this.client.emit(Events.PRESENCE_UPDATE, oldPresence, member.presence);
     }

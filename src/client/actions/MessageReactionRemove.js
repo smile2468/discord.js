@@ -30,10 +30,10 @@ class MessageReactionRemove extends Action {
     if (!reaction) return false;
     reaction._remove(user);
     /**
-     * Emitted whenever a reaction is removed from a cached message.
+     * 반응이 캐시된 메세지에 삭제될 때 실행됩니다.
      * @event Client#messageReactionRemove
-     * @param {MessageReaction} messageReaction The reaction object
-     * @param {User} user The user whose emoji or reaction emoji was removed
+     * @param {MessageReaction} messageReaction 반응 객체
+     * @param {User} user 이모지가 삭제된 유저
      */
     this.client.emit(Events.MESSAGE_REACTION_REMOVE, reaction, user);
 

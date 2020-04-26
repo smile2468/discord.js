@@ -23,9 +23,9 @@ class ChannelDeleteAction extends Action {
         }
       }
       /**
-       * Emitted whenever a channel is deleted.
+       * 채널이 삭제될 때 실행됩니다.
        * @event Client#channelDelete
-       * @param {DMChannel|GuildChannel} channel The channel that was deleted
+       * @param {DMChannel|GuildChannel} channel 삭제된 채널
        */
       client.emit(Events.CHANNEL_DELETE, channel);
     }

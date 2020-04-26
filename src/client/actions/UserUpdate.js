@@ -12,10 +12,10 @@ class UserUpdateAction extends Action {
 
     if (!oldUser.equals(newUser)) {
       /**
-       * Emitted whenever a user's details (e.g. username) are changed.
+       * 유저의 정보 (예) 유저이름)가 수정되었을 때 실행됩니다.
        * @event Client#userUpdate
-       * @param {User} oldUser The user before the update
-       * @param {User} newUser The user after the update
+       * @param {User} oldUser 업데이트 이전의 유저
+       * @param {User} newUser 업데이트 이후의 유저
        */
       client.emit(Events.USER_UPDATE, oldUser, newUser);
       return {

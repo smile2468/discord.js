@@ -36,10 +36,10 @@ class MessageReactionAdd extends Action {
     if (!reaction) return false;
     reaction._add(user);
     /**
-     * Emitted whenever a reaction is added to a cached message.
+     * 반응을 캐시된 메세지에 추가될 때 실행됩니다.
      * @event Client#messageReactionAdd
-     * @param {MessageReaction} messageReaction The reaction object
-     * @param {User} user The user that applied the guild or reaction emoji
+     * @param {MessageReaction} messageReaction 반응 객체
+     * @param {User} user 이모지를 추가한 유저
      */
     this.client.emit(Events.MESSAGE_REACTION_ADD, reaction, user);
 

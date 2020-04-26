@@ -31,10 +31,10 @@ class VoiceStateUpdate extends Action {
       }
 
       /**
-       * Emitted whenever a member changes voice state - e.g. joins/leaves a channel, mutes/unmutes.
+       * 유저가 음성 상태를 변경할 때 실행됩니다. - 예) 음성 채널에 접속/퇴장 하거나 마이크를 끄거나 킬때.
        * @event Client#voiceStateUpdate
-       * @param {VoiceState} oldState The voice state before the update
-       * @param {VoiceState} newState The voice state after the update
+       * @param {VoiceState} oldState 업데이트 이전의 음성 상태
+       * @param {VoiceState} newState 업데이트 이후의 음성 상태
        */
       client.emit(Events.VOICE_STATE_UPDATE, oldState, newState);
     }

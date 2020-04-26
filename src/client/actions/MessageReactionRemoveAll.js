@@ -21,9 +21,9 @@ class MessageReactionRemoveAll extends Action {
 }
 
 /**
- * Emitted whenever all reactions are removed from a cached message.
+ * 모든 반응이 캐시된 메세지에 삭제될 때 실행됩니다.
  * @event Client#messageReactionRemoveAll
- * @param {Message} message The message the reactions were removed from
+ * @param {Message} message 반응이 삭제된 메세지
  */
 
 module.exports = MessageReactionRemoveAll;

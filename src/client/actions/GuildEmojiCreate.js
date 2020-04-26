@@ -7,9 +7,9 @@ class GuildEmojiCreateAction extends Action {
   handle(guild, createdEmoji) {
     const emoji = guild.emojis.add(createdEmoji);
     /**
-     * Emitted whenever a custom emoji is created in a guild.
+     * 길드에 커스텀 이모지가 생성될 때 실행됩니다.
      * @event Client#emojiCreate
-     * @param {GuildEmoji} emoji The emoji that was created
+     * @param {GuildEmoji} emoji 생성된 이모지
      */
     this.client.emit(Events.GUILD_EMOJI_CREATE, emoji);
     return { emoji };

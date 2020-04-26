@@ -24,9 +24,9 @@ class MessageCreateAction extends Action {
       }
 
       /**
-       * Emitted whenever a message is created.
+       * 메세지가 생성될 때 실행됩니다.
        * @event Client#message
-       * @param {Message} message The created message
+       * @param {Message} message 생성된 메세지
        */
       client.emit(Events.MESSAGE_CREATE, message);
       return { message };

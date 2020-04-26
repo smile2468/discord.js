@@ -14,9 +14,9 @@ class MessageDeleteAction extends Action {
         channel.messages.cache.delete(message.id);
         message.deleted = true;
         /**
-         * Emitted whenever a message is deleted.
+         * 메세지가 삭제될 때 실행됩니다.
          * @event Client#messageDelete
-         * @param {Message} message The deleted message
+         * @param {Message} message 삭제된 메세지
          */
         client.emit(Events.MESSAGE_DELETE, message);
       }

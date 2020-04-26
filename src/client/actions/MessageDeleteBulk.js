@@ -29,9 +29,9 @@ class MessageDeleteBulkAction extends Action {
       }
 
       /**
-       * Emitted whenever messages are deleted in bulk.
+       * 메세지 여러개가 삭제될 때 실행됩니다.
        * @event Client#messageDeleteBulk
-       * @param {Collection<Snowflake, Message>} messages The deleted messages, mapped by their ID
+       * @param {Collection<Snowflake, Message>} messages 삭제된 메세지들 (ID로 매핑)
        */
       if (messages.size > 0) client.emit(Events.MESSAGE_BULK_DELETE, messages);
       return { messages };
