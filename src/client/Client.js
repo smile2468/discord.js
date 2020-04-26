@@ -238,7 +238,7 @@ class Client extends BaseClient {
 
   /**
    * 디스코드에서 초대링크를 가져옵니다.
-   * @param {InviteResolvable} invite Invite code or URL
+   * @param {InviteResolvable} invite 초대 코드 또는 URL
    * @returns {Promise<Invite>}
    * @example
    * client.fetchInvite('https://discord.gg/bRCvFy9')
