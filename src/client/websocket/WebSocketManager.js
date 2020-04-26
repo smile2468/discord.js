@@ -24,9 +24,9 @@ const UNRECOVERABLE_CLOSE_CODES = Object.keys(WSCodes)
 const UNRESUMABLE_CLOSE_CODES = [1000, 4006, 4007];
 
 /**
- * The WebSocket manager for this client.
- * <info>This class forwards raw dispatch events,
- * read more about it here {@link https://discordapp.com/developers/docs/topics/gateway}</info>
+ * 클라이언트의 웹소켓 매니저입니다.
+ * <info>이 클래스는 raw dispatch 이벤트를 전달합니다.
+ * 더 알아보고 싶으시다면 {@link https://discordapp.com/developers/docs/topics/gateway}를 읽어보세요.</info>
  * @extends EventEmitter
  */
 class WebSocketManager extends EventEmitter {
@@ -34,7 +34,7 @@ class WebSocketManager extends EventEmitter {
     super();
 
     /**
-     * The client that instantiated this WebSocketManager
+     * 이 웹소켓 매니저를 인스턴스화한 클라이언트
      * @type {Client}
      * @readonly
      * @name WebSocketManager#client
@@ -42,26 +42,26 @@ class WebSocketManager extends EventEmitter {
     Object.defineProperty(this, 'client', { value: client });
 
     /**
-     * The gateway this manager uses
+     * 해당 매니저가 사용하는 게이트웨이
      * @type {?string}
      */
     this.gateway = undefined;
 
     /**
-     * The amount of shards this manager handles
+     * 매니저가 핸들하는 샤드의 개수
      * @private
      * @type {number}
      */
     this.totalShards = this.client.options.shards.length;
 
     /**
-     * A collection of all shards this manager handles
+     * 매니저가 핸들하는 모든 샤드 모음
      * @type {Collection<number, WebSocketShard>}
      */
     this.shards = new Collection();
 
     /**
-     * An array of shards to be connected or that need to reconnect
+     * 연결하거나, 재연결해야하는 샤드의 배열
      * @type {Set<WebSocketShard>}
      * @private
      * @name WebSocketManager#shardQueue
@@ -69,7 +69,7 @@ class WebSocketManager extends EventEmitter {
     Object.defineProperty(this, 'shardQueue', { value: new Set(), writable: true });
 
     /**
-     * An array of queued events before this WebSocketManager became ready
+     * 이 웹소켓 매니저가 준비되기 전에 대기열에 있는 이벤트의 배열
      * @type {object[]}
      * @private
      * @name WebSocketManager#packetQueue
@@ -77,38 +77,38 @@ class WebSocketManager extends EventEmitter {
     Object.defineProperty(this, 'packetQueue', { value: [] });
 
     /**
-     * The current status of this WebSocketManager
+     * 웹소켓 매니저의 현재 상태
      * @type {number}
      */
     this.status = Status.IDLE;
 
     /**
-     * If this manager was destroyed. It will prevent shards from reconnecting
+     * 만약 매니저가 종료되었다면, 샤드가 다시 연결되는걸 방지할 수 있습니다.
      * @type {boolean}
      * @private
      */
     this.destroyed = false;
 
     /**
-     * If this manager is currently reconnecting one or multiple shards
+     * 이 매니저가 현재 하나 이상의 샤드에 다시 연결하는 경우
      * @type {boolean}
      * @private
      */
     this.reconnecting = false;
 
     /**
-     * The current session limit of the client
+     * 클라이언트의 현재 세션 제한
      * @private
      * @type {?Object}
-     * @prop {number} total Total number of identifies available
-     * @prop {number} remaining Number of identifies remaining
-     * @prop {number} reset_after Number of milliseconds after which the limit resets
+     * @prop {number} total 사용 가능한 총 개수
+     * @prop {number} remaining 남은 개수
+     * @prop {number} reset_after 제한이 재설정되는 시간 (밀리초)
      */
     this.sessionStartLimit = undefined;
   }
 
   /**
-   * The average ping of all WebSocketShards
+   * 웹소켓 샤드들의 평균 지연시간
    * @type {number}
    * @readonly
    */
@@ -118,9 +118,9 @@ class WebSocketManager extends EventEmitter {
   }
 
   /**
-   * Emits a debug message.
-   * @param {string} message The debug message
-   * @param {?WebSocketShard} [shard] The shard that emitted this message, if any
+   * 디버그 메세지를 전송합니다.
+   * @param {string} message 디버그 메세지
+   * @param {?WebSocketShard} [shard] 이 메세지를 보낸 샤드(존재하는 경우)
    * @private
    */
   debug(message, shard) {
@@ -128,7 +128,7 @@ class WebSocketManager extends EventEmitter {
   }
 
   /**
-   * Connects this manager to the gateway.
+   * 해당 매니저를 게이트웨이에 연결합니다.
    * @private
    */
   async connect() {
@@ -173,7 +173,7 @@ class WebSocketManager extends EventEmitter {
   }
 
   /**
-   * Handles the creation of a shard.
+   * 샤드의 생성을 핸들합니다.
    * @returns {Promise<boolean>}
    * @private
    */
@@ -188,10 +188,10 @@ class WebSocketManager extends EventEmitter {
     if (!shard.eventsAttached) {
       shard.on(ShardEvents.ALL_READY, unavailableGuilds => {
         /**
-         * Emitted when a shard turns ready.
+         * 샤드가 준비되면 실행됩니다
          * @event Client#shardReady
-         * @param {number} id The shard ID that turned ready
-         * @param {?Set<string>} unavailableGuilds Set of unavailable guild IDs, if any
+         * @param {number} id 준비된 샤드 ID
+         * @param {?Set<string>} unavailableGuilds 복구중인 길드들의 ID 셋 (있는 경우)
          */
         this.client.emit(Events.SHARD_READY, shard.id, unavailableGuilds);
 
@@ -202,10 +202,10 @@ class WebSocketManager extends EventEmitter {
       shard.on(ShardEvents.CLOSE, event => {
         if (event.code === 1000 ? this.destroyed : UNRECOVERABLE_CLOSE_CODES.includes(event.code)) {
           /**
-           * Emitted when a shard's WebSocket disconnects and will no longer reconnect.
+           * 샤드의 웹소켓이 연결이 끊기고 다시 재연결하지 않을 때 실행됩니다.
            * @event Client#shardDisconnect
-           * @param {CloseEvent} event The WebSocket close event
-           * @param {number} id The shard ID that disconnected
+           * @param {CloseEvent} event 웹소켓 해제 이벤트
+           * @param {number} id 연결 해제된 샤드 ID
            */
           this.client.emit(Events.SHARD_DISCONNECT, event, shard.id);
           this.debug(WSCodes[event.code], shard);
@@ -218,9 +218,9 @@ class WebSocketManager extends EventEmitter {
         }
 
         /**
-         * Emitted when a shard is attempting to reconnect or re-identify.
+         * 샤드가 재연결이나 재인증을 시도할 때 실행됩니다.
          * @event Client#shardReconnecting
-         * @param {number} id The shard ID that is attempting to reconnect
+         * @param {number} id 재연결할 샤드 ID
          */
         this.client.emit(Events.SHARD_RECONNECTING, shard.id);
 
@@ -278,8 +278,8 @@ class WebSocketManager extends EventEmitter {
   }
 
   /**
-   * Handles reconnects for this manager.
-   * @param {boolean} [skipLimit=false] IF this reconnect should skip checking the session limit
+   * 해당 매니저의 재연결을 핸들합니다.
+   * @param {boolean} [skipLimit=false] 다시 연결할때 세션 제한 확인을 건너뛸지 여부
    * @private
    * @returns {Promise<boolean>}
    */
@@ -300,9 +300,9 @@ class WebSocketManager extends EventEmitter {
       // If we get an error at this point, it means we cannot reconnect anymore
       if (this.client.listenerCount(Events.INVALIDATED)) {
         /**
-         * Emitted when the client's session becomes invalidated.
-         * You are expected to handle closing the process gracefully and preventing a boot loop
-         * if you are listening to this event.
+         * 클라이언트 세션이 무효화될 때 실행됩니다.
+         * 프로세스를 부드럽게 닫고 부트 루프를 방지하는 작업을 수행할 것으로 예상합니다.
+         * 이 이벤트를 듣고 있는 경우 말이죠.
          * @event Client#invalidated
          */
         this.client.emit(Events.INVALIDATED);
@@ -318,8 +318,8 @@ class WebSocketManager extends EventEmitter {
   }
 
   /**
-   * Broadcasts a packet to every shard this manager handles.
-   * @param {Object} packet The packet to send
+   * 해당 매니저가 핸들하는 모든 샤드로 패킷을 전송합니다.
+   * @param {Object} packet 전송할 패킷
    * @private
    */
   broadcast(packet) {
@@ -327,7 +327,7 @@ class WebSocketManager extends EventEmitter {
   }
 
   /**
-   * Destroys this manager and all its shards.
+   * 이 매니저와 해당되는 샤드들을 삭제합니다.
    * @private
    */
   destroy() {
@@ -339,7 +339,7 @@ class WebSocketManager extends EventEmitter {
   }
 
   /**
-   * Handles the timeout required if we cannot identify anymore.
+   * 더 이상 확인할 수 없는 경우의 시간 초과를 핸들합니다.
    * @param {number} [remaining] The amount of remaining identify sessions that can be done today
    * @param {number} [resetAfter] The amount of time in which the identify counter resets
    * @private
