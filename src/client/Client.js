@@ -23,23 +23,23 @@ const Permissions = require('../util/Permissions');
 const Structures = require('../util/Structures');
 
 /**
- * The main hub for interacting with the Discord API, and the starting point for any bot.
+ * Discord API와 상호 작용하는 주요 허브 및 모든봇의 시작점.
  * @extends {BaseClient}
  */
 class Client extends BaseClient {
   /**
-   * @param {ClientOptions} [options] Options for the client
+   * @param {ClientOptions} [options] 클라이언트의 옵션
    */
   constructor(options = {}) {
     super(Object.assign({ _tokenType: 'Bot' }, options));
 
-    // Obtain shard details from environment or if present, worker threads
+    // 환경 정보 또는 현재 워커 스레드 샤드 정보를 가져옵니다.
     let data = process.env;
     try {
-      // Test if worker threads module is present and used
+      // 워커 스레드 모듈이 현재 사용되는지 테스트
       data = require('worker_threads').workerData || data;
     } catch {
-      // Do nothing
+      // 아무것도 하지 않기
     }
 
     if (this.options.shards === DefaultOptions.shards) {
@@ -75,26 +75,26 @@ class Client extends BaseClient {
     this._validateOptions();
 
     /**
-     * The WebSocket manager of the client
+     * 클라이언트의 웹소켓 매니저
      * @type {WebSocketManager}
      */
     this.ws = new WebSocketManager(this);
 
     /**
-     * The action manager of the client
+     * 클라이언트의 액션 매니저
      * @type {ActionsManager}
      * @private
      */
     this.actions = new ActionsManager(this);
 
     /**
-     * The voice manager of the client (`null` in browsers)
+     * 클라이언트의 음성 매니저 (브라우저에서는 `null`)
      * @type {?ClientVoiceManager}
      */
     this.voice = !browser ? new ClientVoiceManager(this) : null;
 
     /**
-     * Shard helpers for the client (only if the process was spawned from a {@link ShardingManager})
+     * 클라이언트에 대한 Shard 핼퍼 ({@link ShardingManager} 로 프로세스가 생성되었을 때만 해당됩니다.)
      * @type {?ShardClientUtil}
      */
     this.shard =
@@ -103,30 +103,30 @@ class Client extends BaseClient {
         : null;
 
     /**
-     * All of the {@link User} objects that have been cached at any point, mapped by their IDs
+     * 모든 캐시된 {@link User} 오브젝트 (ID로 매핑됨)
      * @type {UserManager}
      */
     this.users = new UserManager(this);
 
     /**
-     * All of the guilds the client is currently handling, mapped by their IDs -
-     * as long as sharding isn't being used, this will be *every* guild the bot is a member of
+     * 클라이언트가 현재 핸들링하고 있는 모든 길드 (ID로 매핑됨)
+     * 만약 샤딩을 사용하고 있지 않다면, 봇이 멤버인 *모든* 길드에 해당합니다.
      * @type {GuildManager}
      */
     this.guilds = new GuildManager(this);
 
     /**
-     * All of the {@link Channel}s that the client is currently handling, mapped by their IDs -
-     * as long as sharding isn't being used, this will be *every* channel in *every* guild the bot
-     * is a member of. Note that DM channels will not be initially cached, and thus not be present
-     * in the Manager without their explicit fetching or use.
+     *  클라이언트가 현재 핸들링하고 있는 모든 채널({@link Channel}) (ID로 매핑됨)
+     * 만약 샤딩을 사용하고 있지 않다면, 봇이 멤버인 *모든* 길드에 있는 *모든* 채널에 해당합니다.
+     * DM 채널은 초기에 캐싱되지 않으므로 존재하지 않는다는 점에 유의하시길 바랍니다.
+     * 매니저가 명시적으로 가져오거나 사용하지 않는 경우에 해당합니다.
      * @type {ChannelManager}
      */
     this.channels = new ChannelManager(this);
 
     const ClientPresence = Structures.get('ClientPresence');
     /**
-     * The presence of the Client
+     * 클라이언트의 프리센스(Presence)
      * @private
      * @type {ClientPresence}
      */
@@ -135,8 +135,8 @@ class Client extends BaseClient {
     Object.defineProperty(this, 'token', { writable: true });
     if (!browser && !this.token && 'DISCORD_TOKEN' in process.env) {
       /**
-       * Authorization token for the logged in bot
-       * <warn>This should be kept private at all times.</warn>
+       * 로그인된 봇의 인증 토큰
+       * <warn>토큰은 언제나 비밀리 보관되어야합니다.</warn>
        * @type {?string}
        */
       this.token = process.env.DISCORD_TOKEN;
@@ -145,14 +145,14 @@ class Client extends BaseClient {
     }
 
     /**
-     * User that the client is logged in as
+     * 클라이언트가 로그인되어있는 유저
      * @type {?ClientUser}
      */
     this.user = null;
 
     /**
-     * Time at which the client was last regarded as being in the `READY` state
-     * (each time the client disconnects and successfully reconnects, this will be overwritten)
+     * 클라이언트가 마지막으로 `준비(READY)` 상태로 표시된 시간
+     * (클라이언트가 끊기고 성공적으로 다시 연결될때, 이것은 덮어써질 것입니다)
      * @type {?Date}
      */
     this.readyAt = null;
@@ -163,7 +163,7 @@ class Client extends BaseClient {
   }
 
   /**
-   * All custom emojis that the client has access to, mapped by their IDs
+   * 클라이언트가 접근할 수 있는 모든 커스텀 이모지들 (ID로 매핑됨)
    * @type {GuildEmojiManager}
    * @readonly
    */
@@ -176,7 +176,7 @@ class Client extends BaseClient {
   }
 
   /**
-   * Timestamp of the time the client was last `READY` at
+   * 클라이언트가 마지막으로 `준비`되었던 시간의 타임스탬프
    * @type {?number}
    * @readonly
    */
@@ -185,7 +185,7 @@ class Client extends BaseClient {
   }
 
   /**
-   * How long it has been since the client last entered the `READY` state in milliseconds
+   * 클라이언트가 마지막으로 `준비` 상태로 전환된 후 경과 시간(밀리초)
    * @type {?number}
    * @readonly
    */
@@ -194,11 +194,11 @@ class Client extends BaseClient {
   }
 
   /**
-   * Logs the client in, establishing a websocket connection to Discord.
-   * @param {string} token Token of the account to log in with
-   * @returns {Promise<string>} Token of the account used
+   * 클라이언트를 로그인하고 디스코드에 대한 웹 소켓 연결을 설정하세요
+   * @param {string} token 로그인할 계정의 토큰
+   * @returns {Promise<string>} 계정에 사용된 토큰
    * @example
-   * client.login('my token');
+   * client.login('나의 토큰');
    */
   async login(token = this.token) {
     if (!token || typeof token !== 'string') throw new Error('TOKEN_INVALID');
@@ -227,7 +227,7 @@ class Client extends BaseClient {
   }
 
   /**
-   * Logs out, terminates the connection to Discord, and destroys the client.
+   * 로그아웃하여 디스코드와의 연결을 종료하고 클라이언트를 종료합니다.
    * @returns {void}
    */
   destroy() {
@@ -237,12 +237,12 @@ class Client extends BaseClient {
   }
 
   /**
-   * Obtains an invite from Discord.
+   * 디스코드에서 초대링크를 가져옵니다.
    * @param {InviteResolvable} invite Invite code or URL
    * @returns {Promise<Invite>}
    * @example
    * client.fetchInvite('https://discord.gg/bRCvFy9')
-   *   .then(invite => console.log(`Obtained invite with code: ${invite.code}`))
+   *   .then(invite => console.log(`초대 정보를 코드로 가져왔습니다: ${invite.code}`))
    *   .catch(console.error);
    */
   fetchInvite(invite) {
@@ -254,13 +254,13 @@ class Client extends BaseClient {
   }
 
   /**
-   * Obtains a webhook from Discord.
-   * @param {Snowflake} id ID of the webhook
-   * @param {string} [token] Token for the webhook
+   * 디스코드에서 웹훅을 가져옵니다.
+   * @param {Snowflake} id 웹훅의 아이디
+   * @param {string} [token] 웹훅의 토큰
    * @returns {Promise<Webhook>}
    * @example
    * client.fetchWebhook('id', 'token')
-   *   .then(webhook => console.log(`Obtained webhook with name: ${webhook.name}`))
+   *   .then(webhook => console.log(`${webhook.name} 이름의 웹훅을 가져옵니다`))
    *   .catch(console.error);
    */
   fetchWebhook(id, token) {
@@ -271,11 +271,11 @@ class Client extends BaseClient {
   }
 
   /**
-   * Obtains the available voice regions from Discord.
+   * 디스코드에서 가능한 음성 길드위치를 가져옵니다.
    * @returns {Promise<Collection<string, VoiceRegion>>}
    * @example
    * client.fetchVoiceRegions()
-   *   .then(regions => console.log(`Available regions are: ${regions.map(region => region.name).join(', ')}`))
+   *   .then(regions => console.log(`가능한 음성 길드위치는: ${regions.map(region => region.name).join(', ')}`))
    *   .catch(console.error);
    */
   fetchVoiceRegions() {
@@ -287,16 +287,16 @@ class Client extends BaseClient {
   }
 
   /**
-   * Sweeps all text-based channels' messages and removes the ones older than the max message lifetime.
-   * If the message has been edited, the time of the edit is used rather than the time of the original message.
-   * @param {number} [lifetime=this.options.messageCacheLifetime] Messages that are older than this (in seconds)
-   * will be removed from the caches. The default is based on {@link ClientOptions#messageCacheLifetime}
-   * @returns {number} Amount of messages that were removed from the caches,
-   * or -1 if the message cache lifetime is unlimited
+   * 모든 텍스트 기반 채널의 메시지를 스위프하고 최대 메시지 수명보다 오래된 메시지를 제거합니다.
+   * 메시지가 수정된 경우, 원본 메시지의 시간이 아닌 메세지 수정 시간이 사용됩니다.
+   * @param {number} [lifetime=this.options.messageCacheLifetime] 이것보다 오래된 메세지 (단위: 초)
+   * 캐시에서 삭제될겁니다. 기본값은 {@link ClientOptions#messageCacheLifetime} 를 참고하시길 바랍니다
+   * @returns {number} 캐시에서 삭제된 메세지의 양
+   * 메세지 캐시에 제한이 없다면 -1
    * @example
-   * // Remove all messages older than 1800 seconds from the messages cache
+   * // 1800초보다 오래된 모든 메세지를 메세지 캐시에서 삭제합니다.
    * const amount = client.sweepMessages(1800);
-   * console.log(`Successfully removed ${amount} messages from the cache.`);
+   * console.log(`성공적으로 ${amount} 개의 메세지가 메세지 캐시에서 삭제되었습니다.`);
    */
   sweepMessages(lifetime = this.options.messageCacheLifetime) {
     if (typeof lifetime !== 'number' || isNaN(lifetime)) {
@@ -329,7 +329,7 @@ class Client extends BaseClient {
   }
 
   /**
-   * Obtains the OAuth Application of this bot from Discord.
+   * 해당 봇의 OAuth 애플리케이션을 디스코드에서 가져옵니다
    * @returns {Promise<ClientApplication>}
    */
   fetchApplication() {
@@ -340,8 +340,8 @@ class Client extends BaseClient {
   }
 
   /**
-   * Obtains a guild preview from Discord, only available for public guilds.
-   * @param {GuildResolvable} guild The guild to fetch the preview for
+   * 디스코드에서 길드 미리보기를 얻습니다. 공개 길드에서만 사용할 수 있습니다.
+   * @param {GuildResolvable} guild 미리보기를 가져올 길드
    * @returns {Promise<GuildPreview>}
    */
   fetchGuildPreview(guild) {
@@ -354,12 +354,12 @@ class Client extends BaseClient {
   }
 
   /**
-   * Generates a link that can be used to invite the bot to a guild.
-   * @param {PermissionResolvable} [permissions] Permissions to request
+   * 봇을 길드에 초대할 때 사용될 수 있는 링크를 생성합니다.
+   * @param {PermissionResolvable} [permissions] 요청할 권한
    * @returns {Promise<string>}
    * @example
    * client.generateInvite(['SEND_MESSAGES', 'MANAGE_GUILD', 'MENTION_EVERYONE'])
-   *   .then(link => console.log(`Generated bot invite link: ${link}`))
+   *   .then(link => console.log(`봇 초대링크가 생성되었습니다: ${link}`))
    *   .catch(console.error);
    */
   async generateInvite(permissions) {
@@ -381,9 +381,9 @@ class Client extends BaseClient {
   }
 
   /**
-   * Calls {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval} on a script
-   * with the client as `this`.
-   * @param {string} script Script to eval
+   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval} 를 실행합니다
+   * 클라이언트는 `this`로 선언됩니다.
+   * @param {string} script 실행할 스크립트
    * @returns {*}
    * @private
    */
@@ -392,8 +392,8 @@ class Client extends BaseClient {
   }
 
   /**
-   * Validates the client options.
-   * @param {ClientOptions} [options=this.options] Options to validate
+   * 클라이언트 옵션의 유효성을 검사합니다.
+   * @param {ClientOptions} [options=this.options] 유효성을 검사할 옵션
    * @private
    */
   _validateOptions(options = this.options) {
@@ -443,13 +443,13 @@ class Client extends BaseClient {
 module.exports = Client;
 
 /**
- * Emitted for general warnings.
+ * 일반적인 경고가 발생할 때 실행됩니다.
  * @event Client#warn
- * @param {string} info The warning
+ * @param {string} info 경고
  */
 
 /**
- * Emitted for general debugging information.
+ * 일반적인 디버그 정보가 발생할 때 실행됩니다.
  * @event Client#debug
- * @param {string} info The debug information
+ * @param {string} info 디버그 정보
  */
