@@ -167,13 +167,13 @@ class GuildMemberManager extends BaseManager {
    * @param {Object} [options] 차단 옵션
    * @param {number} [options.days=0] 삭제할 메시지 일수
    * @param {string} [options.reason] 차단하는 이유
-   * @returns {Promise<GuildMember|User|Snowflake>} Result object will be resolved as specifically as possible.
-   * If the GuildMember cannot be resolved, the User will instead be attempted to be resolved. If that also cannot
-   * be resolved, the user ID will be the result.
+   * @returns {Promise<GuildMember|User|Snowflake>} 결과 객체는 가능한 한 구체적으로 돌려집니다.
+   * 만약 서버 유저로 리졸브할 수 없다면 유저로 리졸브를 시도합니다. 만약 이것도 리졸브할 수 없다면
+   * 유저 ID가 결과가 됩니다.
    * @example
-   * // Ban a user by ID (or with a user/guild member object)
+   * // ID로 유저를 차단합니다 (또는 유저/서버 유저 객체)
    * guild.members.ban('84484653687267328')
-   *   .then(user => console.log(`Banned ${user.username || user.id || user} from ${guild.name}`))
+   *   .then(user => console.log(`${user.username || user.id || user} 유저를 ${guild.name}에서 차단했습니다`))
    *   .catch(console.error);
    */
   ban(user, options = { days: 0 }) {
@@ -195,14 +195,14 @@ class GuildMemberManager extends BaseManager {
   }
 
   /**
-   * Unbans a user from the guild.
-   * @param {UserResolvable} user The user to unban
-   * @param {string} [reason] Reason for unbanning user
+   * 길드에서 한 유저를 차단 해제합니다.
+   * @param {UserResolvable} user 차단 해제할 유저
+   * @param {string} [reason] 차단 해제하는 이유
    * @returns {Promise<User>}
    * @example
-   * // Unban a user by ID (or with a user/guild member object)
+   * // ID로 유저를 차단 해제합니다 (또는 유저/서버 유저 객체)
    * guild.members.unban('84484653687267328')
-   *   .then(user => console.log(`Unbanned ${user.username} from ${guild.name}`))
+   *   .then(user => console.log(`${user.username || user.id || user} 유저를 ${guild.name}에서 차단했습니다`))
    *   .catch(console.error);
    */
   unban(user, reason) {
