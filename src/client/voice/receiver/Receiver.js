@@ -35,7 +35,7 @@ class VoiceReceiver extends EventEmitter {
    */
 
   /**
-   *"새 오디오 수신 스트림을 생성합니다. 유저를 위한 스트림이 이미 존재하는 경우, 
+   *"새 오디오 수신 스트림을 생성합니다. 유저를 위한 스트림이 이미 존재하는 경우,
    * 새로 생성하지 않고 존재하던 스트림을 반환합니다.
    * @param {UserResolvable} user The user to start listening to.
    * @param {ReceiveStreamOptions} options Options.

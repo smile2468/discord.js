@@ -4,17 +4,17 @@ const { TypeError } = require('../errors');
 const Collection = require('../util/Collection');
 
 /**
- * Manages API methods for roles of a GuildMember and stores their cache.
+ * 서버 유저들의 역할 API 메소드를 관리하고 캐시에 저장합니다.
  */
 class GuildMemberRoleManager {
   constructor(member) {
     /**
-     * The GuildMember this manager belongs to
+     * 이 매니저에 귀속된 서버 유저
      * @type {GuildMember}
      */
     this.member = member;
     /**
-     * The Guild this manager belongs to
+     * 이 매니저에 귀속된 길드
      * @type {Guild}
      */
     this.guild = member.guild;
@@ -22,7 +22,7 @@ class GuildMemberRoleManager {
   }
 
   /**
-   * The filtered collection of roles of the member
+   * 이 서버 유저의 역할들이 필터링된 컬렉션
    * @type {Collection<Snowflake, Role>}
    * @private
    * @readonly
@@ -33,7 +33,7 @@ class GuildMemberRoleManager {
   }
 
   /**
-   * The roles of this member
+   * 이 서버 유저의 역할 캐시
    * @type {Collection<Snowflake, Role>}
    * @readonly
    */
@@ -42,7 +42,7 @@ class GuildMemberRoleManager {
   }
 
   /**
-   * The role of the member used to hoist them in a separate category in the users list
+   * 유저 목록에서 별도의 카테고리로 서버 유저를 들어 올리는데 사용되는 멤버의 역할
    * @type {?Role}
    * @readonly
    */
@@ -53,7 +53,7 @@ class GuildMemberRoleManager {
   }
 
   /**
-   * The role of the member used to set their color
+   * 서버 유저에게 적용되는 역할 색깔
    * @type {?Role}
    * @readonly
    */
@@ -64,7 +64,7 @@ class GuildMemberRoleManager {
   }
 
   /**
-   * The role of the member with the highest position
+   * 서버 유저의 가장 높은 위치를 가진 역할
    * @type {Role}
    * @readonly
    */
@@ -73,9 +73,9 @@ class GuildMemberRoleManager {
   }
 
   /**
-   * Adds a role (or multiple roles) to the member.
-   * @param {RoleResolvable|RoleResolvable[]|Collection<Snowflake, Role>} roleOrRoles The role or roles to add
-   * @param {string} [reason] Reason for adding the role(s)
+   * 서버 유저에게 역할 또는 역할들을 추가합니다.
+   * @param {RoleResolvable|RoleResolvable[]|Collection<Snowflake, Role>} roleOrRoles 추가할 역할 또는 역할들
+   * @param {string} [reason] 역할을 추가하는 이유
    * @returns {Promise<GuildMember>}
    */
   async add(roleOrRoles, reason) {
@@ -107,9 +107,9 @@ class GuildMemberRoleManager {
   }
 
   /**
-   * Removes a role (or multiple roles) from the member.
-   * @param {RoleResolvable|RoleResolvable[]|Collection<Snowflake, Role>} roleOrRoles The role or roles to remove
-   * @param {string} [reason] Reason for removing the role(s)
+   * 서버 유저에게 역할 또는 역할들을 제거합니다.
+   * @param {RoleResolvable|RoleResolvable[]|Collection<Snowflake, Role>} roleOrRoles 제거할 역할 또는 역할들
+   * @param {string} [reason] 역할을 제거하는 이유
    * @returns {Promise<GuildMember>}
    */
   async remove(roleOrRoles, reason) {
@@ -137,19 +137,19 @@ class GuildMemberRoleManager {
   }
 
   /**
-   * Sets the roles applied to the member.
-   * @param {Collection<Snowflake, Role>|RoleResolvable[]} roles The roles or role IDs to apply
-   * @param {string} [reason] Reason for applying the roles
+   * 서버 유저의 역할을 이 역할들로 덮어씌웁니다.
+   * @param {Collection<Snowflake, Role>|RoleResolvable[]} roles 덮어씌울 역할들 또는 역할의 ID들
+   * @param {string} [reason] 역할을 덮어씌우는 이유
    * @returns {Promise<GuildMember>}
    * @example
-   * // Set the member's roles to a single role
+   * // 서버 유저의 역할을 이 역할만 가지도록 덮어씌웁니다
    * guildMember.roles.set(['391156570408615936'])
    *   .then(console.log)
    *   .catch(console.error);
    * @example
-   * // Remove all the roles from a member
+   * // 서버 유저의 모든 역할을 제거합니다
    * guildMember.roles.set([])
-   *   .then(member => console.log(`Member roles is now of ${member.roles.cache.size} size`))
+   *   .then(member => console.log(`서버 유저의 역할 수는 이제 ${member.roles.cache.size}개입니다`))
    *   .catch(console.error);
    */
   set(roles, reason) {

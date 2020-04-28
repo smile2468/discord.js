@@ -11,7 +11,7 @@ const { Client, MessageEmbed } = require('discord.js');
 const client = new Client();
 
 /**
- * ready 이벤트는 중요하며, 이 이벤트만이 봇이 정보에 반응을 시작된다는 것을 의미합니다.
+ * Ready 이벤트는 중요하며, 이 이벤트만이 봇이 정보에 반응을 시작된다는 것을 의미합니다.
  * 디스코드로 부터 정보가 전달됩니다.
  */
 client.on('ready', () => {
