@@ -91,8 +91,7 @@ client.login("토큰");
 
 ## 기여하기
 
-이슈를 작성하기 전에 아직 보고/제안되지 않았는지 확인하고 해당 이슈를 다시 확인하십시오.
-[문서](https://discord.js.org/#/docs).  
+이슈를 작성하기 전에 아직 보고/제안되지 않았는지 확인하고 [문서](https://discord.js.org/#/docs)를 다시 한 번 확인하십시오.
 PR를 등록하고 싶으시다면 [기여 가이드](https://github.com/discordjs/discord.js/blob/master/.github/CONTRIBUTING.md)를 먼저 확인해보시길 바랍니다.
 
 ## 도움

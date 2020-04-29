@@ -6,13 +6,13 @@ const PlayInterface = require('./util/PlayInterface');
 const { Events } = require('../../util/Constants');
 
 /**
- * A voice broadcast can be played across multiple voice connections for improved shared-stream efficiency.
+ * 음성 브로드케스트의 스트림의 공유의 향상된 효율성을 위해, 여러 음성 연결을 통해 재생할 수 있습니다.
  *
- * Example usage:
+ * 예시:
  * ```js
  * const broadcast = client.voice.createBroadcast();
  * broadcast.play('./music.mp3');
- * // Play "music.mp3" in all voice connections that the client is in
+ * // 클라이언트가 있는 모든 음성 연결이 "music.mp3"를 재생합니다.
  * for (const connection of client.voice.connections.values()) {
  *   connection.play(broadcast);
  * }
@@ -24,12 +24,12 @@ class VoiceBroadcast extends EventEmitter {
   constructor(client) {
     super();
     /**
-     * The client that created the broadcast
+     * 브로드케스트를 생성한 클라이언트
      * @type {Client}
      */
     this.client = client;
     /**
-     * The subscribed StreamDispatchers of this broadcast
+     * 해당 브로드케스트를 연결한(subscribed) 스트림 디스파처들(StreamDispatchers)
      * @type {StreamDispatcher[]}
      */
     this.subscribers = [];
@@ -37,7 +37,8 @@ class VoiceBroadcast extends EventEmitter {
   }
 
   /**
-   * The current master dispatcher, if any. This dispatcher controls all that is played by subscribed dispatchers.
+   * 현재 마스터 디스파처 (존재하는 경우)
+   * 해당 디스파처에 연결된(subscribed) 디스파처들에서 재생되는 모든 것을 제어합니다.
    * @type {?BroadcastDispatcher}
    * @readonly
    */
@@ -46,17 +47,17 @@ class VoiceBroadcast extends EventEmitter {
   }
 
   /**
-   * Play an audio resource.
-   * @param {ReadableStream|string} resource The resource to play.
-   * @param {StreamOptions} [options] The options to play.
+   * 오디오 리소스를 재생합니다.
+   * @param {ReadableStream|string} resource 플레이할 리소스
+   * @param {StreamOptions} [options] 재생 옵션
    * @example
-   * // Play a local audio file
+   * // 로컬 파일을 재생합니다.
    * broadcast.play('/home/hydrabolt/audio.mp3', { volume: 0.5 });
    * @example
-   * // Play a ReadableStream
+   * // ReadableStream 을 재생합니다.
    * broadcast.play(ytdl('https://www.youtube.com/watch?v=ZlAU_w7-Xp8', { filter: 'audioonly' }));
    * @example
-   * // Using different protocols: https://ffmpeg.org/ffmpeg-protocols.html
+   * // 다른 프로토콜을 사용합니다: https://ffmpeg.org/ffmpeg-protocols.html
    * broadcast.play('http://www.sample-videos.com/audio/mp3/wave.mp3');
    * @returns {BroadcastDispatcher}
    */
@@ -65,6 +66,7 @@ class VoiceBroadcast extends EventEmitter {
   }
 
   /**
+   * 브로드케스트를 종료하고, 연결한(subscribed) 모든 채널의 연결 해제하고, 브로드캐스트를 삭제합니다.
    * Ends the broadcast, unsubscribing all subscribed channels and deleting the broadcast
    */
   end() {
@@ -78,9 +80,9 @@ class VoiceBroadcast extends EventEmitter {
     if (index === -1) {
       this.subscribers.push(dispatcher);
       /**
-       * Emitted whenever a stream dispatcher subscribes to the broadcast.
+       * 스트림 디스파처가 브로드케스트를 연결(subscribe)하면 실행됩니다.
        * @event VoiceBroadcast#subscribe
-       * @param {StreamDispatcher} subscriber The subscribed dispatcher
+       * @param {StreamDispatcher} subscriber 연결한 디스파처
        */
       this.emit(Events.VOICE_BROADCAST_SUBSCRIBE, dispatcher);
       return true;
@@ -95,7 +97,7 @@ class VoiceBroadcast extends EventEmitter {
       this.subscribers.splice(index, 1);
       dispatcher.destroy();
       /**
-       * Emitted whenever a stream dispatcher unsubscribes to the broadcast.
+       * 스트림 디스파처가 브로드캐스트에서 연결 해제(unsubscribe)할 때 실행됩니다.
        * @event VoiceBroadcast#unsubscribe
        * @param {StreamDispatcher} dispatcher The unsubscribed dispatcher
        */

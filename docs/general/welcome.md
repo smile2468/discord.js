@@ -36,8 +36,8 @@ discord.js 는 강력한 [Node.js](https://nodejs.org) 모듈로써 [디스코�
 **12.0.0 버전 이상의 Node.js 가 요구됩니다**
 모두 선택 사항이기 때문에 비적합한 동위 종속성(unmet peer dependencies)에 대한 모든 경고를 무시하시길 바랍니다.
 음성 기능이 필요 없다면: `npm install discord.js`
-음성 기능과 함께: ([@discordjs/opus](https://www.npmjs.com/package/@discordjs/opus)): `npm install discord.js @discordjs/opus`
-음성 기능과 함께: ([opusscript](https://www.npmjs.com/package/opusscript)): `npm install discord.js opusscript`
+([@discordjs/opus](https://www.npmjs.com/package/@discordjs/opus) 모듈로 음성 기능을 사용하려면: `npm install discord.js @discordjs/opus`
+[opusscript](https://www.npmjs.com/package/opusscript) 모듈로 음성 기능을 사용하려면: `npm install discord.js opusscript`
 
 ### 오디오 엔진
 
@@ -90,8 +90,7 @@ client.login("토큰");
 
 ## 기여하기
 
-이슈를 작성하기 전에 아직 보고/제안되지 않았는지 확인하고 해당 이슈를 다시 확인하십시오.
-[문서](https://discord.js.org/#/docs).  
+이슈를 작성하기 전에 아직 보고/제안되지 않았는지 확인하고 [문서](https://discord.js.org/#/docs)를 다시 한 번 확인하십시오.
 PR를 등록하고 싶으시다면 [기여 가이드](https://github.com/discordjs/discord.js/blob/master/.github/CONTRIBUTING.md)를 먼저 확인해보시길 바랍니다.
 
 ## 도움

@@ -6,12 +6,12 @@ const { Error } = require('../../errors');
 const Collection = require('../../util/Collection');
 
 /**
- * Manages voice connections for the client
+ * 클라이언트의 음성 연결을 관리합니다.
  */
 class ClientVoiceManager {
   constructor(client) {
     /**
-     * The client that instantiated this voice manager
+     * 해당 음성 매니저를 인스턴스화한 클라이언트
      * @type {Client}
      * @readonly
      * @name ClientVoiceManager#client
@@ -19,20 +19,20 @@ class ClientVoiceManager {
     Object.defineProperty(this, 'client', { value: client });
 
     /**
-     * A collection mapping connection IDs to the Connection objects
+     * 연결 객체들을 ID들로 매핑한 컬랙션
      * @type {Collection<Snowflake, VoiceConnection>}
      */
     this.connections = new Collection();
 
     /**
-     * Active voice broadcasts that have been created
+     * 생성된 활성 음성 브로드케스트
      * @type {VoiceBroadcast[]}
      */
     this.broadcasts = [];
   }
 
   /**
-   * Creates a voice broadcast.
+   * 음성 브로드케스트를 생성합니다.
    * @returns {VoiceBroadcast}
    */
   createBroadcast() {
@@ -61,8 +61,8 @@ class ClientVoiceManager {
   }
 
   /**
-   * Sets up a request to join a voice channel.
-   * @param {VoiceChannel} channel The voice channel to join
+   * 음성 채널에 접속하도록 요청을 설정합니다.
+   * @param {VoiceChannel} channel 접속할 음성 채널
    * @returns {Promise<VoiceConnection>}
    * @private
    */
