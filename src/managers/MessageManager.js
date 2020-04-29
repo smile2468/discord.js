@@ -6,21 +6,21 @@ const Collection = require('../util/Collection');
 const LimitedCollection = require('../util/LimitedCollection');
 
 /**
- * Manages API methods for Messages and holds their cache.
+ * 메세지의 API 메소드를 관리하고 캐시에 저장합니다.
  * @extends {BaseManager}
  */
 class MessageManager extends BaseManager {
   constructor(channel, iterable) {
     super(channel.client, iterable, Message, LimitedCollection, channel.client.options.messageCacheMaxSize);
     /**
-     * The channel that the messages belong to
+     * 이 매니저에 귀속된 채널
      * @type {TextBasedChannel}
      */
     this.channel = channel;
   }
 
   /**
-   * The cache of Messages
+   * 이 매니저에 귀속된 메세지 캐시
    * @type {Collection<Snowflake, Message>}
    * @name MessageManager#cache
    */
@@ -30,36 +30,36 @@ class MessageManager extends BaseManager {
   }
 
   /**
-   * The parameters to pass in when requesting previous messages from a channel. `around`, `before` and
-   * `after` are mutually exclusive. All the parameters are optional.
+   * 메세지 기록을 불러올때 사용하는 옵션들입니다. `around`, `before`와
+   * `after`은 상호 배타적입니다. 모든 옵션들은 선택입니다.
    * @typedef {Object} ChannelLogsQueryOptions
-   * @property {number} [limit=50] Number of messages to acquire
-   * @property {Snowflake} [before] ID of a message to get the messages that were posted before it
-   * @property {Snowflake} [after] ID of a message to get the messages that were posted after it
-   * @property {Snowflake} [around] ID of a message to get the messages that were posted around it
+   * @property {number} [limit=50] 불러올 메세지의 수
+   * @property {Snowflake} [before] 이 메세지 ID 전의 메세지들을 불러옵니다
+   * @property {Snowflake} [after] 이 메세지 ID 후의 메세지들을 불러옵니다
+   * @property {Snowflake} [around] 이 메세지 ID 쯤의 메세지들을 불러옵니다
    */
 
   /**
-   * Gets a message, or messages, from this channel.
-   * <info>The returned Collection does not contain reaction users of the messages if they were not cached.
-   * Those need to be fetched separately in such a case.</info>
-   * @param {Snowflake|ChannelLogsQueryOptions} [message] The ID of the message to fetch, or query parameters.
-   * @param {boolean} [cache=true] Whether to cache the message(s)
+   * 메세지 또는 메세지들을 이 채널에서 불러옵니다.
+   * <info>만약 캐싱이 되지 않았다면 돌려진 컬렉션은 리액션 데이터를 포함하지 않습니다.
+   * 이 데이터들을 포함하려면 메세지를 나뉘어 불러야합니다.</info>
+   * @param {Snowflake|ChannelLogsQueryOptions} [message] 불러올 메세지의 ID 또는 쿼리 파라미터.
+   * @param {boolean} [cache=true] 이 메세지(들)의 캐싱 여부
    * @returns {Promise<Message>|Promise<Collection<Snowflake, Message>>}
    * @example
-   * // Get message
+   * // 한 메세지를 불러옵니다
    * channel.messages.fetch('99539446449315840')
    *   .then(message => console.log(message.content))
    *   .catch(console.error);
    * @example
-   * // Get messages
+   * // 최근 10개의 메세지를 불러옵니다
    * channel.messages.fetch({ limit: 10 })
-   *   .then(messages => console.log(`Received ${messages.size} messages`))
+   *   .then(messages => console.log(`${messages.size}개의 메세지들을 전달 받았습니다`))
    *   .catch(console.error);
    * @example
-   * // Get messages and filter by user ID
+   * // 최근 50개의 메세지를 불러오고 메세지를 보낸 유저로 필터링합니다
    * channel.messages.fetch()
-   *   .then(messages => console.log(`${messages.filter(m => m.author.id === '84484653687267328').size} messages`))
+   *   .then(messages => console.log(`${messages.filter(m => m.author.id === '84484653687267328').size}개의 메세지들`))
    *   .catch(console.error);
    */
   fetch(message, cache = true) {
@@ -67,15 +67,15 @@ class MessageManager extends BaseManager {
   }
 
   /**
-   * Fetches the pinned messages of this channel and returns a collection of them.
-   * <info>The returned Collection does not contain any reaction data of the messages.
-   * Those need to be fetched separately.</info>
+   * 해당 채널에 고정된 메세지들을 불러와 컬렉션으로 돌려줍니다.
+   * <info>만약 캐싱이 되지 않았다면 돌려진 컬렉션은 리액션 데이터를 포함하지 않습니다.
+   * 이 데이터들을 포함하려면 메세지를 나뉘어 불러야합니다.</info>
    * @param {boolean} [cache=true] Whether to cache the message(s)
    * @returns {Promise<Collection<Snowflake, Message>>}
    * @example
-   * // Get pinned messages
+   * // 고정된 메세지들을 불러옵니다
    * channel.fetchPinned()
-   *   .then(messages => console.log(`Received ${messages.size} messages`))
+   *   .then(messages => console.log(`${messages.size}개의 메세지들을 받았습니다`))
    *   .catch(console.error);
    */
   fetchPinned(cache = true) {
@@ -87,34 +87,34 @@ class MessageManager extends BaseManager {
   }
 
   /**
-   * Data that can be resolved to a Message object. This can be:
-   * * A Message
-   * * A Snowflake
+   * 메세지 객체로 리졸브 가능한 데이터. 가능한 데이터:
+   * * 메세지 클래스
+   * * Snowflake
    * @typedef {Message|Snowflake} MessageResolvable
    */
 
   /**
-   * Resolves a MessageResolvable to a Message object.
+   * 메세지로 리졸브 가능한 데이터를 메세지 객체 데이터로 리졸브합니다.
    * @method resolve
    * @memberof MessageManager
    * @instance
-   * @param {MessageResolvable} message The message resolvable to resolve
+   * @param {MessageResolvable} message 리졸브 할 메세지 데이터
    * @returns {?Message}
    */
 
   /**
-   * Resolves a MessageResolvable to a Message ID string.
+   * 메세지로 리졸브 가능한 데이터를 메세지 ID 문자열로 리졸브합니다.
    * @method resolveID
    * @memberof MessageManager
    * @instance
-   * @param {MessageResolvable} message The message resolvable to resolve
+   * @param {MessageResolvable} message 리졸브 할 메세지 데이터
    * @returns {?Snowflake}
    */
 
   /**
-   * Deletes a message, even if it's not cached.
-   * @param {MessageResolvable} message The message to delete
-   * @param {string} [reason] Reason for deleting this message, if it does not belong to the client user
+   * 캐싱이 되지 않았어도 메세지를 삭제합니다.
+   * @param {MessageResolvable} message 삭제할 메세지
+   * @param {string} [reason] 만약 클라이언트에게 귀속된 메세지가 아니라면 이 메세지를 삭제하는 이유
    * @returns {Promise<void>}
    */
   async delete(message, reason) {
