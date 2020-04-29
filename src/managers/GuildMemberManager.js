@@ -81,33 +81,33 @@ class GuildMemberManager extends BaseManager {
 
   /**
    * 디스코드에서 서버 유저를 불러옵니다 (오프라인인 경우 포함).
-   * @param {UserResolvable|FetchMemberOptions|FetchMembersOptions} [options] If a UserResolvable, the user to fetch.
-   * If undefined, fetches all members.
-   * If a query, it limits the results to users with similar usernames.
+   * @param {UserResolvable|FetchMemberOptions|FetchMembersOptions} [options] 만약 유저로 리졸브 가능한 데이터면 불러올 유저.ㅛ
+   * 만약 undefined 값이면 모든 유저를 불러옵니다.
+   * 만약 query 값이 문자열이면 비슷한 이름을 가진 모든 유저를 불러옵니다.
    * @returns {Promise<GuildMember>|Promise<Collection<Snowflake, GuildMember>>}
    * @example
-   * // Fetch all members from a guild
+   * // 길드의 모든 유저를 불러옵니다
    * guild.members.fetch()
    *   .then(console.log)
    *   .catch(console.error);
    * @example
-   * // Fetch a single member
+   * // 한 서버 유저를 불러옵니다
    * guild.members.fetch('66564597481480192')
    *   .then(console.log)
    *   .catch(console.error);
    * @example
-   * // Fetch a single member without caching
+   * // 한 서버를 불러오지만 캐싱을 하지 않습니다
    * guild.members.fetch({ user, cache: false })
    *   .then(console.log)
    *   .catch(console.error);
    * @example
-   * // Fetch by an array of users including their presences
+   * // Presence 데이터를 유저 데이터에 포함하면서 유저 ID 배열로 불러옵니다
    * guild.members.fetch({ user: ['66564597481480192', '191615925336670208'], withPresences: true })
    *   .then(console.log)
    *   .catch(console.error);
    * @example
-   * // Fetch by query
-   * guild.members.fetch({ query: 'hydra', limit: 1 })
+   * // query 값으로 불러옵니다
+   * guild.members.fetch({ query: '히드라', limit: 1 })
    *   .then(console.log)
    *   .catch(console.error);
    */
@@ -128,23 +128,23 @@ class GuildMemberManager extends BaseManager {
   }
 
   /**
-   * Prunes members from the guild based on how long they have been inactive.
-   * <info>It's recommended to set options.count to `false` for large guilds.</info>
-   * @param {Object} [options] Prune options
-   * @param {number} [options.days=7] Number of days of inactivity required to kick
-   * @param {boolean} [options.dry=false] Get number of users that will be kicked, without actually kicking them
-   * @param {boolean} [options.count=true] Whether or not to return the number of users that have been kicked.
-   * @param {string} [options.reason] Reason for this prune
-   * @returns {Promise<number|null>} The number of members that were/will be kicked
+   * 서버 유저들이 몇일 동안 잠수였는지 따라 서버 유저를 정리합니다.
+   * <info>만약 길드가 크다면 options.count를 `false`로 하는 것이 추천됩니다.</info>
+   * @param {Object} [options] 정리 옵션
+   * @param {number} [options.days=7] 추방하기 위해서 필요한 서버 유저가 잠수 상태인 일 수
+   * @param {boolean} [options.dry=false] 추방이 될 서버 유저 수를 구합니다 (추방은 되지 않습니다)
+   * @param {boolean} [options.count=true] 추방된 유저 수를 구합니다.
+   * @param {string} [options.reason] 정리를 하는 이유
+   * @returns {Promise<number|null>} 추방될/된 서버 유저 수
    * @example
-   * // See how many members will be pruned
+   * // 정리될 서버 유저 수를 확인합니다
    * guild.members.prune({ dry: true })
-   *   .then(pruned => console.log(`This will prune ${pruned} people!`))
+   *   .then(pruned => console.log(`이것은 ${pruned}명을 정리할 것입니다!`))
    *   .catch(console.error);
    * @example
    * // Actually prune the members
-   * guild.members.prune({ days: 1, reason: 'too many people!' })
-   *   .then(pruned => console.log(`I just pruned ${pruned} people!`))
+   * guild.members.prune({ days: 1, reason: '서버 유저가 너무 많아서요!' })
+   *   .then(pruned => console.log(`${pruned}명을 정리 했습니다!`))
    *   .catch(console.error);
    */
   prune({ days = 7, dry = false, count = true, reason } = {}) {
@@ -162,18 +162,18 @@ class GuildMemberManager extends BaseManager {
   }
 
   /**
-   * Bans a user from the guild.
-   * @param {UserResolvable} user The user to ban
-   * @param {Object} [options] Options for the ban
-   * @param {number} [options.days=0] Number of days of messages to delete
-   * @param {string} [options.reason] Reason for banning
-   * @returns {Promise<GuildMember|User|Snowflake>} Result object will be resolved as specifically as possible.
-   * If the GuildMember cannot be resolved, the User will instead be attempted to be resolved. If that also cannot
-   * be resolved, the user ID will be the result.
+   * 길드에서 한 유저를 차단합니다.
+   * @param {UserResolvable} user 차단할 유저
+   * @param {Object} [options] 차단 옵션
+   * @param {number} [options.days=0] 삭제할 메시지 일수
+   * @param {string} [options.reason] 차단하는 이유
+   * @returns {Promise<GuildMember|User|Snowflake>} 결과 객체는 가능한 한 구체적으로 돌려집니다.
+   * 만약 서버 유저로 리졸브할 수 없다면 유저로 리졸브를 시도합니다. 만약 이것도 리졸브할 수 없다면
+   * 유저 ID가 결과가 됩니다.
    * @example
-   * // Ban a user by ID (or with a user/guild member object)
+   * // ID로 유저를 차단합니다 (또는 유저/서버 유저 객체)
    * guild.members.ban('84484653687267328')
-   *   .then(user => console.log(`Banned ${user.username || user.id || user} from ${guild.name}`))
+   *   .then(user => console.log(`${user.username || user.id || user} 유저를 ${guild.name}에서 차단했습니다`))
    *   .catch(console.error);
    */
   ban(user, options = { days: 0 }) {
@@ -195,14 +195,14 @@ class GuildMemberManager extends BaseManager {
   }
 
   /**
-   * Unbans a user from the guild.
-   * @param {UserResolvable} user The user to unban
-   * @param {string} [reason] Reason for unbanning user
+   * 길드에서 한 유저를 차단 해제합니다.
+   * @param {UserResolvable} user 차단 해제할 유저
+   * @param {string} [reason] 차단 해제하는 이유
    * @returns {Promise<User>}
    * @example
-   * // Unban a user by ID (or with a user/guild member object)
+   * // ID로 유저를 차단 해제합니다 (또는 유저/서버 유저 객체)
    * guild.members.unban('84484653687267328')
-   *   .then(user => console.log(`Unbanned ${user.username} from ${guild.name}`))
+   *   .then(user => console.log(`${user.username || user.id || user} 유저를 ${guild.name}에서 차단했습니다`))
    *   .catch(console.error);
    */
   unban(user, reason) {
