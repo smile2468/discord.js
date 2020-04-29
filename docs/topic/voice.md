@@ -8,7 +8,7 @@ discord.js 에서 `음성채널(VoiceChannel)`에 연결하면 음성을 사용�
 시작하기 위해, 다음을 확인해주시길 바랍니다:
 
 - FFmpeg - `npm install ffmpeg-static`
-- opus 인코더, 다음 중에 골라주시길 바랍니다:
+- opus 인코더는 다음 중에 골라주시길 바랍니다:
   - `npm install @discordjs/opus` (더 나은 성능)
   - `npm install opusscript`
 - 좋은 인터넷 연결 상태
