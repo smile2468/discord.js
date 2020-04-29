@@ -4,7 +4,7 @@ const BaseManager = require('./BaseManager');
 const { Presence } = require('../structures/Presence');
 
 /**
- * Manages API methods for Presences and holds their cache.
+ * 프리센스의 API 메소드를 관리하고 캐시에 저장합니다.
  * @extends {BaseManager}
  */
 class PresenceManager extends BaseManager {
@@ -13,7 +13,7 @@ class PresenceManager extends BaseManager {
   }
 
   /**
-   * The cache of Presences
+   * 이 매니저에 귀속된 프리센스 캐시
    * @type {Collection<Snowflake, Presence>}
    * @name PresenceManager#cache
    */
@@ -24,16 +24,16 @@ class PresenceManager extends BaseManager {
   }
 
   /**
-   * Data that can be resolved to a Presence object. This can be:
-   * * A Presence
-   * * A UserResolvable
-   * * A Snowflake
+   * 프리센스 객체로 리졸브 가능한 데이터. 가능한 데이터:
+   * * 프리센스 클래스
+   * * 유저 객체로 리졸브 가능한 데이터
+   * * Snowflake
    * @typedef {Presence|UserResolvable|Snowflake} PresenceResolvable
    */
 
   /**
-   * Resolves a PresenceResolvable to a Presence object.
-   * @param {PresenceResolvable} presence The presence resolvable to resolve
+   * 프리센스로 리졸브 가능한 데이터를 프리센스 객체 데이터로 리졸브합니다.
+   * @param {PresenceResolvable} presence 리졸브 할 프리센스 데이터
    * @returns {?Presence}
    */
   resolve(presence) {
@@ -44,8 +44,8 @@ class PresenceManager extends BaseManager {
   }
 
   /**
-   * Resolves a PresenceResolvable to a Presence ID string.
-   * @param {PresenceResolvable} presence The presence resolvable to resolve
+   * 프리센스로 리졸브 가능한 데이터를 프리센스 ID 문자열로 리졸브합니다.
+   * @param {PresenceResolvable} presence 리졸브 할 프리센스 데이터
    * @returns {?Snowflake}
    */
   resolveID(presence) {
