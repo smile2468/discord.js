@@ -5,31 +5,31 @@ const { Error } = require('../errors');
 const Collection = require('../util/Collection');
 
 /**
- * Manages API methods for users who reacted to a reaction and stores their cache.
+ * 리액션을 한 유저의 API 메소드를 관리하고 캐시에 저장합니다.
  * @extends {BaseManager}
  */
 class ReactionUserManager extends BaseManager {
   constructor(client, iterable, reaction) {
     super(client, iterable, { name: 'User' });
     /**
-     * The reaction that this manager belongs to
+     * 이 매니저에 귀속된 리액션
      * @type {MessageReaction}
      */
     this.reaction = reaction;
   }
 
   /**
-   * The cache of this manager
+   * 이 매니저의 리액션 유저 캐시
    * @type {Collection<Snowflake, User>}
    * @name ReactionUserManager#cache
    */
 
   /**
-   * Fetches all the users that gave this reaction. Resolves with a collection of users, mapped by their IDs.
-   * @param {Object} [options] Options for fetching the users
-   * @param {number} [options.limit=100] The maximum amount of users to fetch, defaults to 100
-   * @param {Snowflake} [options.before] Limit fetching users to those with an id lower than the supplied id
-   * @param {Snowflake} [options.after] Limit fetching users to those with an id greater than the supplied id
+   * 이 리액션을 한 모든 유저를 컬렉션 데이터로 불러옵니다.
+   * @param {Object} [options] 불러오는 옵션
+   * @param {number} [options.limit=100] 불러올 유저의 최대 수 (기본값: 100)
+   * @param {Snowflake} [options.before] 이 ID보다 수가 적은 유저만 불러옵니다
+   * @param {Snowflake} [options.after] 이 ID보다 수가 높은 유저만 불러옵니다
    * @returns {Promise<Collection<Snowflake, User>>}
    */
   async fetch({ limit = 100, after, before } = {}) {
@@ -47,8 +47,8 @@ class ReactionUserManager extends BaseManager {
   }
 
   /**
-   * Removes a user from this reaction.
-   * @param {UserResolvable} [user=this.reaction.message.client.user] The user to remove the reaction of
+   * 이 리액션을 한 유저를 제거합니다.
+   * @param {UserResolvable} [user=this.reaction.message.client.user] 리액션을 제거할 유저
    * @returns {Promise<MessageReaction>}
    */
   remove(user = this.reaction.message.client.user) {

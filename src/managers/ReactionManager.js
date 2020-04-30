@@ -4,7 +4,7 @@ const BaseManager = require('./BaseManager');
 const MessageReaction = require('../structures/MessageReaction');
 
 /**
- * Manages API methods for reactions and holds their cache.
+ * 리액션의 API 메소드를 관리하고 캐시에 저장합니다.
  * @extends {BaseManager}
  */
 class ReactionManager extends BaseManager {
@@ -12,7 +12,7 @@ class ReactionManager extends BaseManager {
     super(message.client, iterable, MessageReaction);
 
     /**
-     * The message that this manager belongs to
+     * 이 매니저에 귀속된 메세지
      * @type {Message}
      */
     this.message = message;
@@ -23,38 +23,38 @@ class ReactionManager extends BaseManager {
   }
 
   /**
-   * The reaction cache of this manager
+   * 이 매니저에 귀속된 리액션 캐시
    * @type {Collection<Snowflake, MessageReaction>}
    * @name ReactionManager#cache
    */
 
   /**
-   * Data that can be resolved to a MessageReaction object. This can be:
-   * * A MessageReaction
-   * * A Snowflake
+   * 메세지 리액션 객체로 리졸브 가능한 데이터. 가능한 데이터:
+   * * MessageReaction 클래스
+   * * Snowflake
    * @typedef {MessageReaction|Snowflake} MessageReactionResolvable
    */
 
   /**
-   * Resolves a MessageReactionResolvable to a MessageReaction object.
+   * 메세지 리액션으로 리졸브 가능한 데이터를 메세지 리액션 객체 데이터로 리졸브합니다.
    * @method resolve
    * @memberof ReactionManager
    * @instance
-   * @param {MessageReactionResolvable} reaction The MessageReaction to resolve
+   * @param {MessageReactionResolvable} reaction 리졸브 할 메세지 리액션 데이터
    * @returns {?MessageReaction}
    */
 
   /**
-   * Resolves a MessageReactionResolvable to a MessageReaction ID string.
+   * 프리센스로 리졸브 가능한 데이터를 프리센스 ID 문자열로 리졸브합니다.
    * @method resolveID
    * @memberof ReactionManager
    * @instance
-   * @param {MessageReactionResolvable} reaction The MessageReaction to resolve
+   * @param {MessageReactionResolvable} reaction 리졸브 할 메세지 리액션 데이터
    * @returns {?Snowflake}
    */
 
   /**
-   * Removes all reactions from a message.
+   * 이 메세지의 모든 리액션을 제거합니다.
    * @returns {Promise<Message>}
    */
   removeAll() {
