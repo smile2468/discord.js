@@ -24,7 +24,7 @@ client.on("ready", () => {
 });
 
 client.on("message", message => {
-  // If the message is '!rip'
+  // 만약 메세지가 '!rip' 이면
   if (message.content === "!rip") {
     // MessageAttachment를 이용하여 첨부파일을 생성합니다.
     const attachment = new MessageAttachment("https://i.imgur.com/w3duR07.png");
@@ -58,7 +58,7 @@ client.on("ready", () => {
 });
 
 client.on("message", message => {
-  // If the message is '!rip'
+  // 만약 메세지가 '!rip' 이면
   if (message.content === "!rip") {
     // MessageAttachment를 이용하여 첨부파일을 생성합니다.
     const attachment = new MessageAttachment("https://i.imgur.com/w3duR07.png");
@@ -95,7 +95,7 @@ client.on("ready", () => {
 });
 
 client.on("message", message => {
-  // If the message is '!rip'
+  // 만약 메세지가 '!rip' 이면
   if (message.content === "!rip") {
     // MessageAttachment를 이용하여 첨부파일을 생성합니다.
     const attachment = new MessageAttachment("./rip.png");
@@ -136,7 +136,7 @@ client.on("ready", () => {
 });
 
 client.on("message", message => {
-  // If the message is '!memes'
+  // 만약 메세지가 '!memes' 이면
   if (message.content === "!memes") {
     // 'memes.txt' 파일이 있다고 가정할때, 'memes.txt' 파일에서 버퍼를 가져옵니다.
     const buffer = fs.readFileSync("./memes.txt");
