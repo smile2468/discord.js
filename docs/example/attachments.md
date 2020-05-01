@@ -1,163 +1,162 @@
-# Sending Attachments
+# 첨부파일 보내기
 
-In here you'll see a few examples showing how you can send an attachment using discord.js.
+discord.js 를 이용하여, 첨부파일을 보낼 수 있는 몇가지 예를 볼 수 있습니다.
 
-## Sending an attachment using a URL
+## URL을 사용하여 첨부파일 보내기
 
-There are a few ways you can do this, but we'll show you the easiest.
+몇가지 방법이 있지만, 가장 쉬운 방법을 보여드리겠습니다.
 
-The following examples use [MessageAttachment](/#/docs/main/master/class/MessageAttachment).
+다음 예시는 [MessageAttachment](/#/docs/main/master/class/MessageAttachment)를 참고해주세요.
 
 ```js
-// Extract the required classes from the discord.js module
+// discord.js 모듈 임포트
 const { Client, MessageAttachment } = require("discord.js");
 
-// Create an instance of a Discord client
+// 디스코드 클라이언트 인스턴트를 생성
 const client = new Client();
 
 /**
- * The ready event is vital, it means that only _after_ this will your bot start reacting to information
- * received from Discord
+ * ready 이벤트는 중요하며, 이 이벤트만이 봇이 정보에 반응을 시작된다는 것을 의미합니다.
+ * 디스코드로 부터 정보가 전달됩니다.
  */
 client.on("ready", () => {
   console.log("I am ready!");
 });
 
 client.on("message", message => {
-  // If the message is '!rip'
+  // 만약 메세지가 '!rip' 이면
   if (message.content === "!rip") {
-    // Create the attachment using MessageAttachment
+    // MessageAttachment를 이용하여 첨부파일을 생성합니다.
     const attachment = new MessageAttachment("https://i.imgur.com/w3duR07.png");
-    // Send the attachment in the message channel
+    // 메세치 채널에 첨부파일을 보냅니다.
     message.channel.send(attachment);
   }
 });
 
-// Log our bot in using the token from https://discordapp.com/developers/applications/me
-client.login("your token here");
+// https://discordapp.com/developers/applications/me 에 있는 토큰을 이용하여 봇에 로그인하세요.
+client.login("토큰을 이곳에 입력하세요");
 ```
 
-And here is the result:
+결과:
 
 ![Image showing the result](/static/attachment-example1.png)
 
-But what if you want to send an attachment with a message content? Fear not, for it is easy to do that too! We'll recommend reading [the TextChannel's "send" function documentation](/#/docs/main/master/class/TextChannel?scrollTo=send) to see what other options are available.
-
+메세지 내용과 첨부파일을 같이 보내려면 어떻게 해야하나요? 겁내지 마세요, 그렇게 하는 것도 쉬워요! 사용 가능한 다른 옵션을 보려면 [the TextChannel's "send" function documentation](/#/docs/main/master/class/TextChannel?scrollTo=send)을 읽는 것이 좋아요.
 ```js
-// Extract the required classes from the discord.js module
+// discord.js 모듈 임포트
 const { Client, MessageAttachment } = require("discord.js");
 
-// Create an instance of a Discord client
+// 디스코드 클라이언트 인스턴트를 생성
 const client = new Client();
 
 /**
- * The ready event is vital, it means that only _after_ this will your bot start reacting to information
- * received from Discord
+ * ready 이벤트는 중요하며, 이 이벤트만이 봇이 정보에 반응을 시작된다는 것을 의미합니다.
+ * 디스코드로 부터 정보가 전달됩니다.
  */
 client.on("ready", () => {
   console.log("I am ready!");
 });
 
 client.on("message", message => {
-  // If the message is '!rip'
+  // 만약 메세지가 '!rip' 이면
   if (message.content === "!rip") {
-    // Create the attachment using MessageAttachment
+    // MessageAttachment를 이용하여 첨부파일을 생성합니다.
     const attachment = new MessageAttachment("https://i.imgur.com/w3duR07.png");
-    // Send the attachment in the message channel with a content
+    // 메세지와 첨부파일을 메세지 채널에 함께 보냅니다.
     message.channel.send(`${message.author},`, attachment);
   }
 });
 
-// Log our bot in using the token from https://discordapp.com/developers/applications/me
-client.login("your token here");
+// https://discordapp.com/developers/applications/me 에 있는 토큰을 이용하여 봇에 로그인하세요.
+client.login("토큰을 이곳에 입력하세요");
 ```
 
-And here's the result of this one:
+또다른 결과:
 
 ![Image showing the result](/static/attachment-example2.png)
 
-## Sending a local file or buffer
+## 로컬 파일 또는 버퍼 보내기
 
-Sending a local file isn't hard either! We'll be using [MessageAttachment](/#/docs/main/master/class/MessageAttachment) for these examples too.
+로컬 파일 전송도 어렵지 않습니다! [MessageAttachment](/#/docs/main/master/class/MessageAttachment)의 예시도 사용할 예정입니다.
 
 ```js
-// Extract the required classes from the discord.js module
+// discord.js 모듈 임포트
 const { Client, MessageAttachment } = require("discord.js");
 
-// Create an instance of a Discord client
+// 디스코드 클라이언트 인스턴트를 생성
 const client = new Client();
 
 /**
- * The ready event is vital, it means that only _after_ this will your bot start reacting to information
- * received from Discord
+ * ready 이벤트는 중요하며, 이 이벤트만이 봇이 정보에 반응을 시작된다는 것을 의미합니다.
+ * 디스코드로 부터 정보가 전달됩니다.
  */
 client.on("ready", () => {
   console.log("I am ready!");
 });
 
 client.on("message", message => {
-  // If the message is '!rip'
+  // 만약 메세지가 '!rip' 이면
   if (message.content === "!rip") {
-    // Create the attachment using MessageAttachment
+    // MessageAttachment를 이용하여 첨부파일을 생성합니다.
     const attachment = new MessageAttachment("./rip.png");
-    // Send the attachment in the message channel with a content
+    // 메세지와 첨부파일을 메세지 채널에 함께 보냅니다.
     message.channel.send(`${message.author},`, attachment);
   }
 });
 
-// Log our bot in using the token from https://discordapp.com/developers/applications/me
-client.login("your token here");
+// https://discordapp.com/developers/applications/me 에 있는 토큰을 이용하여 봇에 로그인하세요.
+client.login("토큰을 이곳에 입력하세요");
 ```
 
-The results are the same as the URL examples:
+URL 예제와 동일한 결과:
 
 ![Image showing result](/static/attachment-example1.png)
 
-But what if you have a buffer from an image? Or a text document? Well, it's the same as sending a local file or a URL!
+그러나 이미지 버퍼가 있다면 어떨까요? 아니면 텍스트 문서라면? 하지만 로컬 파일이나 URL를 이용하여 보내는 것과 같습니다!
 
-In the following example, we'll be getting the buffer from a `memes.txt` file, and send it in the message channel.
-You can use any buffer you want, and send it. Just make sure to overwrite the filename if it isn't an image!
+다음 예시에서, `memes.txt` 파일의 버파를 가져와서 메세지 채널에 보냅니다.
+원하는 모든 버퍼를 사용하여 전송할 수 있습니다. 파일이 이미지가 아닌 경우, 파일 이름을 덮어쓰기만 하면 됩니다!
 
 ```js
-// Extract the required classes from the discord.js module
+// discord.js 모듈 임포트
 const { Client, MessageAttachment } = require("discord.js");
 
-// Import the native fs module
+// fs 
 const fs = require("fs");
 
-// Create an instance of a Discord client
+// 디스코드 클라이언트 인스턴트를 생성
 const client = new Client();
 
 /**
- * The ready event is vital, it means that only _after_ this will your bot start reacting to information
- * received from Discord
+ * ready 이벤트는 중요하며, 이 이벤트만이 봇이 정보에 반응을 시작된다는 것을 의미합니다.
+ * 디스코드로 부터 정보가 전달됩니다.
  */
 client.on("ready", () => {
   console.log("I am ready!");
 });
 
 client.on("message", message => {
-  // If the message is '!memes'
+  // 만약 메세지가 '!memes' 이면
   if (message.content === "!memes") {
-    // Get the buffer from the 'memes.txt', assuming that the file exists
+    // 'memes.txt' 파일이 있다고 가정할때, 'memes.txt' 파일에서 버퍼를 가져옵니다.
     const buffer = fs.readFileSync("./memes.txt");
 
     /**
-     * Create the attachment using MessageAttachment,
-     * overwritting the default file name to 'memes.txt'
-     * Read more about it over at
-     * http://discord.js.org/#/docs/main/master/class/MessageAttachment
+     * MessageAttachment를 이용하여 첨부파일을 생성하십시오.,
+     * 파일 이름을 'mems.txt'로 덮어쓰십시오.
+     * 자세한 내용은 여기서 확인 할 수 있습니다.
+     * http://discord-kr.js.org/#/docs/main/master/class/MessageAttachment
      */
     const attachment = new MessageAttachment(buffer, "memes.txt");
-    // Send the attachment in the message channel with a content
-    message.channel.send(`${message.author}, here are your memes!`, attachment);
+    // 메세지와 첨부파일을 메세지 채널에 함께 보냅니다.
+    message.channel.send(`${message.author}, 밈이 여기있어요!`, attachment);
   }
 });
 
-// Log our bot in using the token from https://discordapp.com/developers/applications/me
-client.login("your token here");
+// https://discordapp.com/developers/applications/me 에 있는 토큰을 이용하여 봇에 로그인하세요.
+client.login("토큰을 이곳에 입력하세요");
 ```
 
-And of course, the results are:
+결과는 이렇습니다:
 
 ![Attachment File example 3](/static/attachment-example3.png)
